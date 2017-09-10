@@ -1,0 +1,69 @@
+<md-spinner *ngIf="!data || !latest || !most_viewed" class="loading"></md-spinner>
+
+<div class="" *ngIf="data && latest && most_viewed">
+  <div class="cs-container">
+    <div class="col-md-9">
+
+      <div class="row">
+        <div id="title">
+          <h1>{{data.title}}</h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <img src="{{IMAGE_URL + data.image}}">
+      </div>
+
+      <div class="row">
+        <div id="sub-title">
+          <h3>{{data.sub_title}}</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="body" [innerHTML]="data.body">
+
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div id="categories">
+          <h3>Categories</h3>
+          <p *ngFor="let category of data.categories">{{category}} </p>
+        </div>
+
+        <div id="keywords">
+          <h3>Keywords</h3>
+          <p>{{data.keywords}}</p>
+        </div>
+
+        <div id="author">
+          <h3>Author</h3>
+          <p>{{data.author}}</p>
+        </div>
+
+        <div id="languages">
+          <h3>Available languages</h3>
+          <button md-button *ngFor="let language of available_languages" (click)="changeLocale(language.slug)">{{language.name}}</button>
+          <p *ngIf="available_languages.length < 1">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <div class="row">
+        <h3>Most Viewed</h3>
+        <a [routerLink]="['/' + getLocale() + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of most_viewed">{{one.content.title}}<br></a>
+      </div>
+
+      <div class="row">
+        <h3>Latest</h3>
+        <a [routerLink]="[ '/' + getLocale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of latest">{{one.content.title}}<br></a>
+      </div>
+
+    </div>
+  </div>
+</div>

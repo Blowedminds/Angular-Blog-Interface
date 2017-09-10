@@ -1,0 +1,56 @@
+<md-spinner *ngIf="!data" class="loading"></md-spinner>
+
+<div class="cs-container" *ngIf="data">
+
+  <h1>Latest</h1>
+
+  <div class="row" *ngFor="let one of data.latest">
+
+    <a [routerLink]="['article', one.slug]" routerLinkActive="active" >
+
+      <md-card class="article-card">
+
+        <div class="article-content" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'">
+
+          <h1>{{one.content.title}}</h1>
+
+        </div>
+
+        <div class="footer-content">
+
+          <p>{{timeAgoConvert(one.created_at.date)}} / {{one.views}}</p>
+
+        </div>
+      </md-card>
+
+    </a>
+
+  </div>
+
+  <h1>Most Viewed</h1>
+
+  <div class="row" *ngFor="let one of data.most_viewed">
+
+    <a [routerLink]="['article', one.slug]" routerLinkActive="active">
+
+      <md-card class="article-card">
+
+        <div class="article-content" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'">
+
+          <h1>{{one.content.title}}</h1>
+
+        </div>
+
+        <div class="footer-content">
+
+          <p>{{timeAgoConvert(one.created_at.date)}} / {{one.views}}</p>
+
+        </div>
+
+      </md-card>
+
+    </a>
+
+  </div>
+
+</div>
