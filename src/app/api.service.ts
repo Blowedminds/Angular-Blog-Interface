@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Params }  from '@angular/router';
+import { ActivatedRoute, Params, Router }  from '@angular/router';
 
-import { Router }            from '@angular/router';
+import { Observable, BehaviorSubject }     from 'rxjs';
 
 @Injectable()
 export class ApiService {
+
+  public locale = new BehaviorSubject<any>(0)
+
+  public localeObs = this.locale.asObservable()
 
   constructor(
     private route: ActivatedRoute,
@@ -13,22 +17,31 @@ export class ApiService {
 
   getLocale()
   {
-    let locale: string = localStorage.getItem('locale')
-
-    if(!locale) locale = this.setLocale('tr')
-
-    return locale
+    return this.locale
   }
 
   setLocale(locale: string)
   {
-    localStorage.setItem('locale', locale)
+    if(!locale) return console.error('Locale is not defined')
+
+    this.locale.next(locale)
 
     return locale
   }
 
-  navigate(link: Array<any>)
+  changeLocale(locale)
   {
-    return this.router.navigate(link);
+    let url = this.router.url
+
+    url = url.slice(3, url.length)
+
+    this.router.navigate([locale + url])
   }
+
+  navigate(link: Array<any>, options: any = {})
+  {
+    return this.router.navigate(link, options);
+  }
+
+
 }

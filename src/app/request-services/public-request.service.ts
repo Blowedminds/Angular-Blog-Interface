@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Router }            from '@angular/router';
 import { Observable }     from 'rxjs';
@@ -11,12 +11,16 @@ import { ApiService }           from '../api.service'
 @Injectable()
 export class PublicRequestService {
 
+  public locale: string
+
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private router: Router,
     private main: MainRequestService,
     private api: ApiService
-  ) { }
+  ) {
+    api.getLocale().subscribe(locale => this.locale = locale)
+  }
 
   public API_URL: string = this.main.mainDomain + this.main.apiDomain
 
@@ -24,23 +28,13 @@ export class PublicRequestService {
 
   private headers = this.main.headers
 
-  getLocale()
-  {
-    return this.api.getLocale()
-  }
-
-  setLocale(locale: string)
-  {
-    return this.api.setLocale(locale)
-  }
-
   getMenus(): Observable<any>
   {
     const url = this.makeRequestURL('menus')
 
     return this.http
                     .get(url, { headers: this.headers})
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -50,7 +44,7 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, {headers: this.headers})
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -60,7 +54,7 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, {headers: this.headers})
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -70,12 +64,12 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
   makeRequestURL(url: string)
   {
-    return this.API_URL + this.getLocale() + "/" + url
+    return this.API_URL + this.locale + "/" + url
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, NavigationEnd, Router } from '@angular/router';
 
 import { PublicRequestService }  from './request-services/public-request.service'
+import { ApiService } from './api.service'
 
 @Component({
   selector: 'app-root',
@@ -17,11 +19,24 @@ export class AppComponent {
 
   constructor(
     private publicRequest: PublicRequestService,
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private router: Router
   ){
-      this.locale = publicRequest.getLocale()
+    this.router.events.filter( e => e instanceof NavigationEnd).subscribe( e => {
+
+      let locale = route.root.firstChild.snapshot.params['locale']
+      console.log(this.locale, locale, 'app.component')
+      if(this.locale != locale) api.setLocale(locale)
+
+      this.locale = locale
+    })
+
   }
 
   ngOnInit() {
+
+    this.api.getLocale().subscribe( locale => this.locale = locale)
 
     this.publicRequest.getMenus().subscribe(response => this.menus = response)
     this.publicRequest.getLanguages().subscribe(response => this.languages = response)
@@ -29,13 +44,11 @@ export class AppComponent {
 
   getLocale()
   {
-    return this.publicRequest.getLocale()
+    return this.locale
   }
 
-  setLocale(locale: string)
+  changeLocale(locale: string)
   {
-    window.location.reload()
-
-    return this.publicRequest.setLocale(locale)
+    return this.api.changeLocale(locale)
   }
 }

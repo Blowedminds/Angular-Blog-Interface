@@ -12,7 +12,7 @@ export class RedirectComponent implements OnInit {
   constructor(
     private api: ApiService
   ) {
-    api.navigate([api.getLocale()])
+    api.localeObs.subscribe( locale => api.navigate([locale]))
   }
 
   ngOnInit() {

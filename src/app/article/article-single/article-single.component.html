@@ -1,6 +1,6 @@
-<md-spinner *ngIf="!data || !latest || !most_viewed" class="loading"></md-spinner>
+<md-spinner *ngIf="!data || !latest || !most_viewed || !locale" class="loading"></md-spinner>
 
-<div class="" *ngIf="data && latest && most_viewed">
+<div class="" *ngIf="data && latest && most_viewed && locale">
   <div class="cs-container">
     <div class="col-md-9">
 
@@ -46,7 +46,7 @@
         <div id="languages">
           <h3>Available languages</h3>
           <button md-button *ngFor="let language of available_languages" (click)="changeLocale(language.slug)">{{language.name}}</button>
-          <p *ngIf="available_languages.length < 1">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
+          <p *ngIf="available_languages.length == 0">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
         </div>
       </div>
 
@@ -56,12 +56,12 @@
 
       <div class="row">
         <h3>Most Viewed</h3>
-        <a [routerLink]="['/' + getLocale() + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of most_viewed">{{one.content.title}}<br></a>
+        <a [routerLink]="['/' + locale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of most_viewed">{{one.content.title}}<br></a>
       </div>
 
       <div class="row">
         <h3>Latest</h3>
-        <a [routerLink]="[ '/' + getLocale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of latest">{{one.content.title}}<br></a>
+        <a [routerLink]="[ '/' + locale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of latest">{{one.content.title}}<br></a>
       </div>
 
     </div>

@@ -4,6 +4,10 @@ import timeago from 'timeago.js';
 
 import { PublicRequestService }  from '../request-services/public-request.service'
 
+import { ApiService } from '../api.service'
+
+import { Subscription } from 'rxjs'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,8 +21,13 @@ export class HomeComponent implements OnInit {
 
   timeAgoInstance: any
 
+  locale: string
+
+  subs = new Subscription()
+
   constructor(
     private publicRequest: PublicRequestService,
+    private api: ApiService
   ) {
     this.IMAGE_URL = this.publicRequest.IMAGE_URL + "image/"
 
@@ -50,7 +59,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.publicRequest.getHomeData().subscribe(response => this.data = response)
+    let rq1 = this.api.getLocale().subscribe( locale => {
+      this.locale = locale
+
+      this.data = null
+
+      let rq2 = this.publicRequest.getHomeData().subscribe(response => this.data = response)
+
+      this.subs.add(rq2)
+    })
+
+    this.subs.add(rq1)
+  }
+
+  ngOnDestroy()
+  {
+    this.subs.unsubscribe()
   }
 
   timeAgoConvert(time: any)

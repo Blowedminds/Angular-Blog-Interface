@@ -1,14 +1,26 @@
-<md-spinner *ngIf="!menus || !languages" class="loading"></md-spinner>
+<md-spinner *ngIf="!menus || !languages || !locale" class="loading"></md-spinner>
 
-<div class="" *ngIf="menus && languages">
+<div class="" *ngIf="menus && languages && locale">
   <md-toolbar id="main-menu">
 
     <a [routerLink]="getLocale() + one.url" routerLinkActive="active" *ngFor="let one of menus; let i = index"><button md-button [mdTooltip]="one.tooltip">{{one.name}}</button></a>
 
-    <button md-button color="{{(getLocale() == one.slug) ? 'warn' : ''}}" *ngFor="let one of languages" (click)="setLocale(one.slug)">{{one.slug}}</button>
 
   </md-toolbar>
-
-  <router-outlet></router-outlet>
+  <div class="router">
+    <div class="row">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="footer">
+    <h1>FOOTER</h1>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="row" *ngFor="let one of languages">
+          <button md-button color="{{(getLocale() == one.slug) ? 'warn' : ''}}"  (click)="changeLocale(one.slug)">{{one.slug}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

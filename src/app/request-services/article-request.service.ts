@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Router }            from '@angular/router';
 import { Observable }     from 'rxjs';
@@ -11,12 +11,7 @@ import { ApiService }           from '../api.service'
 @Injectable()
 export class ArticleRequestService {
 
-  constructor(
-    private http: Http,
-    private router: Router,
-    private main: MainRequestService,
-    public api: ApiService
-  ) { }
+  public locale: string
 
   public API_URL: string = "article/"
 
@@ -24,23 +19,32 @@ export class ArticleRequestService {
 
   private headers = this.main.headers
 
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private main: MainRequestService,
+    public api: ApiService
+  ) {
+    api.getLocale().subscribe(locale => this.locale = locale)
+   }
+
   getMostViewed(): Observable<any>
   {
     const url = this.makeRequestURL("most-viewed")
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
-  getArticleSingle(slug: string): Observable<any>
+  getArticleSingle(slug: string, locale_id: string): Observable<any>
   {
-    const url = this.makeRequestURL("article-single/" + slug)
+    const url = this.main.MAIN_API_URL + locale_id + "/" + this.API_URL + "article-single/" + slug
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -50,12 +54,12 @@ export class ArticleRequestService {
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response.json())
+                    .map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
   makeRequestURL(url: string)
   {
-    return this.main.MAIN_API_URL + this.api.getLocale() + "/" + this.API_URL + url
+    return this.main.MAIN_API_URL + this.locale + "/" + this.API_URL + url
   }
 }

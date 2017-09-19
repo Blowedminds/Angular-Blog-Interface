@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Headers }    from '@angular/http';
-import { ApiService } from '../api.service'
+import { HttpHeaders }    from '@angular/common/http';
 
 @Injectable()
 export class MainRequestService {
 
-  constructor(private api: ApiService) { }
+  constructor() { }
 
   public mainDomain: string = "http://localhost:8000/";
 
@@ -13,7 +12,7 @@ export class MainRequestService {
 
   public MAIN_API_URL = this.mainDomain + this.apiDomain
 
-  public headers = new Headers({
+  public headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
   });
@@ -21,7 +20,7 @@ export class MainRequestService {
   public handleError(error: any, router: any = null): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
 
-    let jsError = error.json()
+    let jsError = error.error
 
     return Promise.reject(error.message || error);
   }
