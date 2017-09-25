@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { ArticleRequestService }  from '../../request-services/article-request.service'
 import { ApiService }  from '../../api.service'
+import { GlobalDataService }  from '../../system/global-data/global-data.service'
 
 import { Subscription } from 'rxjs'
 
@@ -29,15 +30,13 @@ export class ArticleSingleComponent implements OnInit {
 
   subs = new Subscription()
 
-  i = 0
-
   constructor(
     private articleRequest: ArticleRequestService,
     private route: ActivatedRoute,
+    private globalDataService: GlobalDataService,
     private api: ApiService
   ) {
     this.IMAGE_URL = articleRequest.IMAGE_URL + "image/"
-
   }
 
   ngOnInit() {
@@ -52,7 +51,7 @@ export class ArticleSingleComponent implements OnInit {
       if(!this.locale){
         let rq2 = this.route.params.switchMap( (params: Params) => {
           this.data = null
-          console.log(params['locale'], 'test')
+
           return this.articleRequest.getArticleSingle(params['slug'], params['locale'])
         }).subscribe( response => {
           this.data = response
@@ -61,41 +60,14 @@ export class ArticleSingleComponent implements OnInit {
         })
       }
 
-      /*let rq2 = this.route.params.switchMap( (params: Params) => {
-        //if(this.slug == params['slug']) return ['observable'];
-
-        this.data = null
-        this.i += 1
-
-        console.log('count', this.i)
-        this.slug = params['slug']
-
-        return this.articleRequest.getArticleSingle(params['slug'])
-      }).subscribe( response => {
-        console.log(response, 1)
-        if(response == 'observable'){
-
-          console.log('observable', 2)
-
-        }else{
-
-          console.log('switchMap', 3)
-          this.data = response
-
-          this.available_languages = response.available_languages.filter( obj => obj.slug !== locale)
-        }
-      })
-*/
-        //this.subs.add(rq2)
-
-      let rq3 = this.articleRequest.getMostViewed().subscribe(response => {
+      let rq3 = this.globalDataService.mostViewedArticle.subscribe(response => {
         this.most_viewed = response
-        rq3.unsubscribe()
+        if(rq3) rq3.unsubscribe()
       })
 
-      let rq4 = this.articleRequest.getLatest().subscribe(response => {
+      let rq4 = this.globalDataService.latestArticle.subscribe(response => {
         this.latest = response
-        rq4.unsubscribe();
+        if(rq4) rq4.unsubscribe();
       })
 
       this.locale = locale

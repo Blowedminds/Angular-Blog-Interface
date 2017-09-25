@@ -22,7 +22,12 @@ export class ApiService {
 
   setLocale(locale: string)
   {
-    if(!locale) return console.error('Locale is not defined')
+    if(!locale) {
+
+      this.changeLocale('tr')
+
+      return console.error('Locale is not defined')
+    }
 
     this.locale.next(locale)
 

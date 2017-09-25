@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, NavigationEnd, Router } from '@angular/router';
 
 import { PublicRequestService }  from './request-services/public-request.service'
 import { ApiService } from './api.service'
+import { ArticleRequestService }  from './request-services/article-request.service'
+import { GlobalDataService }  from './system/global-data/global-data.service'
 
 @Component({
   selector: 'app-root',
@@ -20,16 +22,32 @@ export class AppComponent {
   constructor(
     private publicRequest: PublicRequestService,
     private api: ApiService,
+    private articleRequest: ArticleRequestService,
+    private globalDataService: GlobalDataService,
     private route: ActivatedRoute,
     private router: Router
   ){
     this.router.events.filter( e => e instanceof NavigationEnd).subscribe( e => {
-
       let locale = route.root.firstChild.snapshot.params['locale']
-      console.log(this.locale, locale, 'app.component')
-      if(this.locale != locale) api.setLocale(locale)
 
-      this.locale = locale
+      if(this.locale != locale){
+
+        api.setLocale(locale)
+
+        let rq1 = articleRequest.getLatest().subscribe( response => {
+
+          globalDataService.latestArticle = response
+
+          rq1.unsubscribe()
+        })
+
+        let rq2 = articleRequest.getMostViewed().subscribe( response => {
+
+          globalDataService.mostViewedArticle = response
+
+          rq2.unsubscribe()
+        })
+      }
     })
 
   }

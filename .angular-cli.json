@@ -20,10 +20,12 @@
       "prefix": "app",
       "styles": [
         "styles.sass",
-        "assets/css/bootstrap.min.css"
+        "assets/css/bootstrap.min.css",
+        "assets/css/tiny-slider.css"
       ],
       "scripts": [
-        "../node_modules/hammerjs/hammer.js"
+        "../node_modules/hammerjs/hammer.js",
+        "assets/js/tiny-slider.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

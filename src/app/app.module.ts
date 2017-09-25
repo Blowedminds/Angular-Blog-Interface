@@ -12,6 +12,7 @@ import { MainRequestService } from './request-services/main-request.service'
 import { ArticleRequestService }  from './request-services/article-request.service'
 import { PublicRequestService }  from './request-services/public-request.service'
 import { ApiService } from './api.service';
+import { GlobalDataService } from './system/global-data/global-data.service'
 
 import { ArticleSingleComponent } from './article/article-single/article-single.component';
 import { HomeComponent } from './home/home.component'
@@ -101,7 +102,8 @@ import { RedirectComponent } from './system/redirect/redirect.component'
     MainRequestService,
     ApiService,
     ArticleRequestService,
-    PublicRequestService
+    PublicRequestService,
+    GlobalDataService
   ],
   bootstrap: [AppComponent]
 })
