@@ -17,7 +17,7 @@ export class ApiService {
 
   getLocale()
   {
-    return this.locale
+    return this.localeObs
   }
 
   setLocale(locale: string)

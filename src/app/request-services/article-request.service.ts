@@ -25,7 +25,11 @@ export class ArticleRequestService {
     private main: MainRequestService,
     public api: ApiService
   ) {
-    api.getLocale().subscribe(locale => this.locale = locale)
+    api.getLocale().subscribe(locale => {
+      if(locale == 0) return
+
+      this.locale = locale
+    })
    }
 
   getMostViewed(): Observable<any>
@@ -34,7 +38,7 @@ export class ArticleRequestService {
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response)
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -44,7 +48,7 @@ export class ArticleRequestService {
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response)
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -54,7 +58,7 @@ export class ArticleRequestService {
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response)
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 

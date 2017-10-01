@@ -98,16 +98,51 @@
 
 
 .main-section
-  margin: 2em 0
   height: 500px
 
   .main-one
     width: 25%
     height: 50%
     float: right
+    background: grey
+    position: relative
+    background-size: cover
 
+    span.article-category
+      z-index: 11
+      background: black
+      width: auto
+      border-radius: 5px
+      padding: 7px
+      color: white
+      text-transform: capitalize
+      margin: 10px
+      display: inline-block
+      font-size: 12px
+
+    .black-layer
+      width: 100%
+      height: 100%
+      position: absolute
+      left: 0
+      top: 0
+      background: rgba( 0, 0, 0, 0.3)
+      z-index: 10
+    h1
+      position: absolute
+      bottom: 0
+      width: 100%
+      padding: .4em
+      font-size: 24px
+      font-weight: 400
+      margin: 0
+      color: white
+      z-index: 11
+    h1::first-letter
+      text-transform: capitalize
   .main-one:nth-child(2n+1):not(.main-one[key="0"])
     float: right
+
 
   .main-one:nth-child(2n)
     float: left
@@ -116,3 +151,49 @@
     width: 50%
     float: left
     height: 100%
+
+    h1
+      font-size: 34px !important
+      font-weight: 500
+      text-transform: uppercase
+
+.main-article
+
+  .article-card
+    padding: 2em
+    width: 75%
+    margin: auto
+    display: block
+    margin-top: 2em
+    margin-bottom: 2em
+    height: auto
+
+    h1
+      text-transform: uppercase
+      text-align: center
+      padding: 20px 0
+      margin: 0
+    p.article-date
+      text-align: center
+      padding-bottom: 20px
+      margin: 0
+    p.article-sub-title
+      padding: 0
+      margin: 1em 0
+      font-size: 15px
+      font-weight: 400
+      line-height: 1.8571428
+    p.article-sub-title:first-letter
+      float: left
+      color: #fb5f84
+      font-size: 55px
+      line-height: 40px
+      padding-top: 4px
+      padding-right: 8px
+      padding-left: 3px
+      font-family: Georgia
+      text-transform: uppercase
+    .article-image
+      background-size: cover
+      width: 100%
+      height: 320px

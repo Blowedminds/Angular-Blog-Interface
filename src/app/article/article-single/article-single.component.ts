@@ -43,7 +43,7 @@ export class ArticleSingleComponent implements OnInit {
 
 
     let rq1 = this.api.getLocale().subscribe( locale => {
-
+      if(locale == 0) return
       this.data = null
       this.most_viewed = null
       this.latest = null

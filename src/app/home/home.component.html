@@ -1,8 +1,8 @@
-<md-spinner *ngIf="!most_viewed_article || !latest_article" class="loading"></md-spinner>
+<md-spinner *ngIf="!most_viewed_article || !latest_article || !categories || !latest_article_5" class="loading"></md-spinner>
 
-<div class="cs-container" *ngIf="most_viewed_article && most_viewed_article">
+<div *ngIf="most_viewed_article && latest_article && latest_article_5 && categories">
 
-  <div class="most-viewed-article">
+  <!--<div class="most-viewed-article">
     <div class="tiny-slider">
       <div class="slider-item back-image" #sliderRun *ngFor="let one of latest_article" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'">
         <div class="slider-over-layer"></div>
@@ -14,37 +14,40 @@
       </div>
     </div>
   </div>
-
+!-->
   <div class="main-section">
 
     <div class="main-one" attr.key="{{i}}" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'" *ngFor="let one of latest_article_5; let i = index">
-      <span>{{one.content.title}}</span>
+
+      <div class="black-layer"></div>
+
+      <span class="article-category">{{findCategory(one.categories[0].id).name}}</span>
+
+      <a [routerLink]="['article', one.slug]">
+        <h1>{{one.content.title}}</h1>
+      </a>
     </div>
 
-    <!--<div class="main-one back-image" [style.background-image]="'url(' + IMAGE_URL + latest_article[0].image + ')'">
-      <span>{{latest_article[0].content.title}}</span>
-    </div>
-    <div class="main-all">
-      <div class="main-all-one back-image" [style.background-image]="'url(' + IMAGE_URL + latest_article[1].image + ')'">
-        <span>{{latest_article[1].content.title}}</span>
-      </div>
-      <div class="main-all-one back-image"[style.background-image]="'url(' + IMAGE_URL + latest_article[2].image + ')'">
-        <span>{{latest_article[2].content.title}}</span>
-      </div>
-      <div class="main-all-one back-image" [style.background-image]="'url(' + IMAGE_URL + latest_article[2].image + ')'">
-        <span>{{latest_article[2].content.title}}</span>
-      </div>
-      <div class="main-all-one back-image" [style.background-image]="'url(' + IMAGE_URL + latest_article[1].image + ')'">
-        <span>{{latest_article[1].content.title}}</span>
-      </div>
-    </div>
- !-->
   </div>
 
 
   <div class="">
 
-    <div class="col-md-9">
+    <div class="col-md-9 main-article">
+
+      <div class="article-card" *ngFor="let one of latest_article_5; let i = index">
+
+        <h1 class="article-title">{{one.content.title}}</h1>
+
+        <p class="article-date">{{one.created_at.date}}</p>
+
+        <div class="article-image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'"></div>
+
+        <p class="article-sub-title">{{one.content.sub_title}}</p>
+        <a [routerLink]="['article', one.slug]">
+          <button md-button>Okumaya Devam ...</button>
+        </a>
+      </div>
 
     </div>
 
@@ -55,7 +58,7 @@
         <div class="header"><h1>Popular Posts</h1></div>
 
         <div class="content">
-          <div class="" *ngFor="let one of latest_article">
+          <div class="" *ngFor="let one of most_viewed_article">
             <img src="{{THUMB_URL + one.image}}" alt="">
             <span>{{one.content.title}}</span>
           </div>
@@ -68,14 +71,8 @@
         <div class="header"><h1>Category</h1></div>
 
         <div class="content">
-          <div class="">
-            ONE
-          </div>
-          <div class="">
-            TWO
-          </div>
-          <div class="">
-            THREE
+          <div class="" *ngFor="let one of categories; let i = index">
+            {{one.name}}
           </div>
         </div>
 
@@ -85,54 +82,4 @@
 
   </div>
 
-  <!--<h1>Latest</h1>
-
-  <div class="row" *ngFor="let one of latest_article">
-
-    <a [routerLink]="['article', one.slug]" routerLinkActive="active" >
-
-      <md-card class="article-card">
-
-        <div class="article-content" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'">
-
-          <h1>{{one.content.title}}</h1>
-
-        </div>
-
-        <div class="footer-content">
-
-          <p>{{timeAgoConvert(one.created_at.date)}} / {{one.views}}</p>
-
-        </div>
-
-      </md-card>
-
-    </a>
-
-  </div>!-->
-
-  <!--<div class="row" *ngFor="let one of most_viewed_article">
-
-    <a [routerLink]="['article', one.slug]" routerLinkActive="active">
-
-      <md-card class="article-card">
-
-        <div class="article-content" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'">
-
-          <h1>{{one.content.title}}</h1>
-
-        </div>
-
-        <div class="footer-content">
-
-          <p>{{timeAgoConvert(one.created_at.date)}} / {{one.views}}</p>
-
-        </div>
-
-      </md-card>
-
-    </a>
-
-  </div>
-!-->
 </div>

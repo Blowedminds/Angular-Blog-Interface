@@ -34,7 +34,7 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, { headers: this.headers})
-                    .map(response => response)
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -44,7 +44,17 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, {headers: this.headers})
-                    .map(response => response)
+                    //.map(response => response)
+                    .catch(error => this.main.handleError(error))
+  }
+
+  getCategories(): Observable<any>
+  {
+    const url = this.makeRequestURL("categories")
+
+    return this.http
+                    .get(url, { headers: this.headers})
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -54,7 +64,7 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, {headers: this.headers})
-                    .map(response => response)
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 
@@ -64,7 +74,7 @@ export class PublicRequestService {
 
     return this.http
                     .get(url, { headers: this.headers })
-                    .map(response => response)
+                    //.map(response => response)
                     .catch(error => this.main.handleError(error))
   }
 

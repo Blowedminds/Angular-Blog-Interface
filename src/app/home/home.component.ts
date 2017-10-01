@@ -35,6 +35,8 @@ export class HomeComponent implements OnInit {
 
   slider: any
 
+  categories: any
+
   @ViewChildren('sliderRun') slider_run: QueryList<any>;
 
   constructor(
@@ -74,22 +76,26 @@ export class HomeComponent implements OnInit {
 
     let rq2 = globalDataService.latestArticle.subscribe( data => {
 
-      if(data){
+      if(typeof data === "object"){
 
         let array = []
 
-        for(let i = 0; i < 5; i++){
+        let length = data.length > 5 ? 5 : data.length
+
+        for(let i = 0; i < length; i++){
           if(typeof data[i] !== "undefined")
             array.push(data[i])
         }
 
         this.latest_article_5 = array
-      }
 
-      this.latest_article = data
+        this.latest_article = data.slice(length, data.length)
+      }
     })
 
-    this.subs.add(rq1); this.subs.add(rq2)
+    let rq3 = globalDataService.categories.subscribe( data => this.categories = data)
+
+    this.subs.add(rq1); this.subs.add(rq2); this.subs.add(rq3)
 
   }
 
@@ -98,6 +104,8 @@ export class HomeComponent implements OnInit {
 
     let rq1 = this.api.getLocale().subscribe( locale => {
 
+      if(locale == 0) return
+
       if((this.locale != locale) && (this.locale)){
 
         this.most_viewed_article = null
@@ -105,8 +113,6 @@ export class HomeComponent implements OnInit {
         this.latest_article = null
 
         this.slider = null
-
-        this.runSlider()
       }
 
       this.locale = locale
@@ -118,18 +124,7 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewInit()
   {
-    if(this.slider_run.length != 0){
 
-      this.runSlider()
-
-    }else{
-
-      let rq3 = this.slider_run.changes .subscribe( e => {
-          this.runSlider()
-      })
-
-      this.subs.add(rq3);
-    }
   }
 
   ngOnDestroy()
@@ -150,7 +145,7 @@ export class HomeComponent implements OnInit {
                   slideBy: 1,
                   autoplay: true,
                   mouseDrag: true,
-                  loop: true,
+                  loop: false,
                   autoplayButtonOutput: false,
                   nav: false,
                   navContainer: false,
@@ -158,6 +153,11 @@ export class HomeComponent implements OnInit {
                   controls: false,
                   edgePadding: 350
                 });
+  }
+
+  findCategory(id: number)
+  {
+    return this.categories.find( obj => obj.id === id)
   }
 
 }

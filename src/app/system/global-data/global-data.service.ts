@@ -5,13 +5,17 @@ import { Observable, BehaviorSubject }     from 'rxjs';
 @Injectable()
 export class GlobalDataService {
 
-  most_viewed_article = new BehaviorSubject<any>(0)
+  _most_viewed_article = new BehaviorSubject<any>(0)
 
-  most_viewed_article_Obs = this.most_viewed_article.asObservable()
+  most_viewed_article_Obs = this._most_viewed_article.asObservable()
 
-  latest_article = new BehaviorSubject<any>(0)
+  _latest_article = new BehaviorSubject<any>(0)
 
-  latest_article_Obs = this.latest_article.asObservable()
+  latest_article_Obs = this._latest_article.asObservable()
+
+  _categories = new BehaviorSubject<any>(0)
+
+  categories_Obs = this._categories.asObservable()
 
   constructor() { }
 
@@ -22,7 +26,7 @@ export class GlobalDataService {
 
   set mostViewedArticle(data: any)
   {
-    this.most_viewed_article.next(data)
+    this._most_viewed_article.next(data)
   }
 
   get latestArticle()
@@ -32,7 +36,16 @@ export class GlobalDataService {
 
   set latestArticle(data: any)
   {
-    this.latest_article.next(data)
+    this._latest_article.next(data)
   }
 
+  get categories()
+  {
+    return this.categories_Obs
+  }
+
+  set categories(data: any)
+  {
+    this._categories.next(data)
+  }
 }

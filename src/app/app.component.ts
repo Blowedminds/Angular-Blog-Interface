@@ -30,23 +30,11 @@ export class AppComponent {
     this.router.events.filter( e => e instanceof NavigationEnd).subscribe( e => {
       let locale = route.root.firstChild.snapshot.params['locale']
 
-      if(this.locale != locale){
+      if(this.locale != locale || (typeof this.locale === "undefined" && typeof locale === "undefined")){
 
         api.setLocale(locale)
 
-        let rq1 = articleRequest.getLatest().subscribe( response => {
 
-          globalDataService.latestArticle = response
-
-          rq1.unsubscribe()
-        })
-
-        let rq2 = articleRequest.getMostViewed().subscribe( response => {
-
-          globalDataService.mostViewedArticle = response
-
-          rq2.unsubscribe()
-        })
       }
     })
 
@@ -54,9 +42,40 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.api.getLocale().subscribe( locale => this.locale = locale)
+    this.api.getLocale().subscribe( locale => {
+      if(locale == 0) return
 
-    this.publicRequest.getMenus().subscribe(response => this.menus = response)
+      let rq1 = this.publicRequest.getMenus().subscribe(response => {
+        this.menus = response
+
+        rq1.unsubscribe()
+      })
+
+      let rq3 = this.articleRequest.getLatest().subscribe( response => {
+
+        this.globalDataService.latestArticle = response
+
+        rq3.unsubscribe()
+      })
+
+      let rq2 = this.articleRequest.getMostViewed().subscribe( response => {
+
+        this.globalDataService.mostViewedArticle = response
+
+        rq2.unsubscribe()
+      })
+
+      let rq4 = this.publicRequest.getCategories().subscribe( response => {
+
+        this.globalDataService.categories = response
+
+        rq4.unsubscribe()
+      })
+
+      this.locale = locale
+    })
+
+
     this.publicRequest.getLanguages().subscribe(response => this.languages = response)
   }
 

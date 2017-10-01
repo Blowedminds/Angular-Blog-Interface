@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders }    from '@angular/common/http';
 
+import { ApiService } from '../api.service'
+
+declare var swal: any
+
 @Injectable()
 export class MainRequestService {
 
-  constructor() { }
+  constructor(
+    private api: ApiService
+  ) { }
 
   public mainDomain: string = "http://localhost:8000/";
 
@@ -18,11 +24,37 @@ export class MainRequestService {
   });
 
   public handleError(error: any, router: any = null): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error)
 
     let jsError = error.error
+    if(typeof jsError.pop_up !== "undefined" && (jsError.pop_up || jsError.pop_up === "true"))
+      swal(jsError.header, jsError.message, jsError.state)
 
-    return Promise.reject(error.message || error);
+    if(typeof jsError.link !== "undefined")
+      switch(jsError.link){
+        case "home":
+          let rq1 = this.api.getLocale().subscribe( locale => {
+            if(locale == 0) return
+
+            this.api.navigate(["/" + locale])
+          })
+          break
+        default:
+          break
+      }
+
+    return Promise.reject(error.message || error)
+  }
+
+  public articleNotFoundError(error: any, router: any = null): Promise<any>
+  {
+    console.error('An error occurred', error)
+
+    let jsError = error.error
+    if(typeof jsError.pop_up !== "undefined" && (jsError.pop_up || jsError.pop_up === "true"))
+    swal(jsError.header, jsError.message, jsError.state)
+
+    return Promise.reject(error.message || error)
   }
 
 }
