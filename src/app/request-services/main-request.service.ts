@@ -26,7 +26,8 @@ export class MainRequestService {
   public handleError(error: any, router: any = null): Promise<any> {
     console.error('An error occurred', error)
 
-    let jsError = error.error
+    let jsError = JSON.parse(error.error)
+
     if(typeof jsError.pop_up !== "undefined" && (jsError.pop_up || jsError.pop_up === "true"))
       swal(jsError.header, jsError.message, jsError.state)
 
