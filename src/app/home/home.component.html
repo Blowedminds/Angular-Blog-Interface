@@ -31,7 +31,7 @@
   </div>
 
 
-  <div class="">
+  <div class="contanier">
 
     <div class="col-md-9 main-article">
 
@@ -49,19 +49,29 @@
         </a>
       </div>
 
-    </div>
+    </div >
 
-    <div class="col-md-3">
+    <div class="col-md-3 right-side">
 
-      <div class="">
+      <div class="popular-posts">
 
         <div class="header"><h1>Popular Posts</h1></div>
 
         <div class="content">
-          <div class="" *ngFor="let one of most_viewed_article">
-            <img src="{{THUMB_URL + one.image}}" alt="">
-            <span>{{one.content.title}}</span>
-          </div>
+          <ul>
+            <li class="popular-most-viewed" *ngFor="let one of most_viewed_article">
+              <div class="popular-item">
+                <div class="item-thumbnail" [style.background-image]="'url(' + THUMB_URL + one.image + ')'"></div>
+
+                <a [routerLink]="['article', one.slug]">
+                  <span>{{one.content.title}}</span>
+                </a>
+
+                <div class="row"></div>
+
+              </div>
+            </li>
+          </ul>
         </div>
 
       </div>

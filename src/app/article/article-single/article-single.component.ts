@@ -41,7 +41,6 @@ export class ArticleSingleComponent implements OnInit {
 
   ngOnInit() {
 
-
     let rq1 = this.api.getLocale().subscribe( locale => {
       if(locale == 0) return
       this.data = null

@@ -9,10 +9,6 @@ body
   margin: 0
   font-family: 'Open Sans', sans-serif
   background-color: $body-background-color
-  //background-image: url('http://localhost:8000/image/image/img_59a27efcb694c')
-  background-attachment: fixed
-  background-size: cover
-  background-position: center
   color: white//$body-color
 a
   color: $menu-a-color
@@ -53,7 +49,51 @@ ul.navigator
   position: absolute !important
   top: 40%
   left: 45%
+/*Article*/
+.article-single
+  background: $article-single-background
+  padding: 2em
 
+  .article
+    background: $article-content-background
+    color: $article-content-color
+    padding: 1em
+    padding-right: 100px
+    padding-left: 40px
+
+    #sub-title
+      border-bottom: 1px solid grey
+      h3
+        color: #603e00
+        font-size: 19px
+        text-transform: capitalize
+        font-style: italic
+    h1
+      text-transform: capitalize
+      text-align: center
+      margin: 1em
+      font-size: 34px
+    p
+      line-height: 1.85
+      font-size: 17px
+      margin-top: 2em
+      margin-bottom: 2em
+    img
+      width: 75%
+      height: auto
+      display: block
+      margin: auto
+      margin-top: 1em
+      margin-bottom: 1em
+      border-radius: 2px
+
+    ul
+      list-style: none
+      padding: 0
+
+    .article-additional
+      p
+        margin: 0
 /*Footer*/
 .footer
   width: 100%

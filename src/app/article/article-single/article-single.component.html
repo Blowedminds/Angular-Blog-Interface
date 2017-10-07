@@ -1,69 +1,107 @@
 <md-spinner *ngIf="!data || !latest || !most_viewed || !locale" class="loading"></md-spinner>
 
 <div class="" *ngIf="data && latest && most_viewed && locale">
-  <div class="cs-container">
-    <div class="col-md-9">
 
+  <div class="article-single">
+    <div class="container">
       <div class="row">
-        <div id="title">
-          <h1>{{data.title}}</h1>
+        <div class="col-md-9">
+          <div class="article">
+            <div id="title">
+              <h1>{{data.title}}</h1>
+            </div>
+
+            <div id="sub-title">
+              <h3>{{data.sub_title}}</h3>
+            </div>
+
+            <div id="body" [innerHTML]="data.body"></div>
+
+            <div class="article-additional">
+
+              <div id="categories">
+                <p >Categories: <span *ngFor="let category of data.categories">{{category}}</span></p>
+              </div>
+
+              <div id="keywords">
+                <p>Labels: {{data.keywords}}</p>
+              </div>
+
+              <div id="languages">
+                <span *ngFor="let language of available_languages">Available Languages:
+                  <button md-button (click)="changeLocale(language.slug)">{{language.name}}</button>
+                </span>
+                <p *ngIf="available_languages.length == 0">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
+              </div>
+
+              <div id="author">
+                <md-card>
+                  <div class="author-image">
+                    IMAGE
+                  </div>
+                  <div class="author-content">
+                    <h3>{{data.author}}</h3>
+                    <p>Author Biography</p>
+                  </div>
+                </md-card>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+
+          <div class="row">
+            <h3>Most Viewed</h3>
+            <a [routerLink]="['/' + locale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of most_viewed">{{one.content.title}}<br></a>
+          </div>
+
+          <div class="row">
+            <h3>Latest</h3>
+            <a [routerLink]="[ '/' + locale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of latest">{{one.content.title}}<br></a>
+          </div>
+
         </div>
       </div>
-
-      <div class="row">
-        <img src="{{IMAGE_URL + data.image}}">
-      </div>
-
-      <div class="row">
-        <div id="sub-title">
-          <h3>{{data.sub_title}}</h3>
-        </div>
-      </div>
-
-      <div class="row">
-        <div id="body" [innerHTML]="data.body">
-
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div id="categories">
-          <h3>Categories</h3>
-          <p *ngFor="let category of data.categories">{{category}} </p>
-        </div>
-
-        <div id="keywords">
-          <h3>Keywords</h3>
-          <p>{{data.keywords}}</p>
-        </div>
-
-        <div id="author">
-          <h3>Author</h3>
-          <p>{{data.author}}</p>
-        </div>
-
-        <div id="languages">
-          <h3>Available languages</h3>
-          <button md-button *ngFor="let language of available_languages" (click)="changeLocale(language.slug)">{{language.name}}</button>
-          <p *ngIf="available_languages.length == 0">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
-        </div>
-      </div>
-
     </div>
 
-    <div class="col-md-3">
+    <!--
+    <md-card class="article">
 
-      <div class="row">
-        <h3>Most Viewed</h3>
-        <a [routerLink]="['/' + locale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of most_viewed">{{one.content.title}}<br></a>
+      <div id="title">
+        <h1>{{data.title}}</h1>
       </div>
 
-      <div class="row">
-        <h3>Latest</h3>
-        <a [routerLink]="[ '/' + locale + '/article', one.slug]" routerLinkActive="active" *ngFor="let one of latest">{{one.content.title}}<br></a>
+      <div id="sub-title">
+        <h3>{{data.sub_title}}</h3>
       </div>
 
-    </div>
+      <div id="body" [innerHTML]="data.body"></div>
+
+      <div id="categories">
+        <h3>Categories</h3>
+        <p *ngFor="let category of data.categories">{{category}} </p>
+      </div>
+
+      <div id="keywords">
+        <h3>Keywords</h3>
+        <p>{{data.keywords}}</p>
+      </div>
+
+      <div id="author">
+        <h3>Author</h3>
+        <p>{{data.author}}</p>
+      </div>
+
+      <div id="languages">
+        <h3>Available languages</h3>
+        <button md-button *ngFor="let language of available_languages" (click)="changeLocale(language.slug)">{{language.name}}</button>
+        <p *ngIf="available_languages.length == 0">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
+      </div>
+
+    </md-card>
+    !-->
   </div>
+
+
 </div>
