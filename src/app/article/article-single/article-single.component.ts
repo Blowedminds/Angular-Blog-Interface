@@ -22,7 +22,9 @@ export class ArticleSingleComponent implements OnInit {
 
   most_viewed: any
 
-  IMAGE_URL: any
+  AUTHOR_IMAGE_URL: string
+
+  IMAGE_URL: string
 
   locale: string
 
@@ -37,6 +39,8 @@ export class ArticleSingleComponent implements OnInit {
     private api: ApiService
   ) {
     this.IMAGE_URL = articleRequest.IMAGE_URL + "image/"
+
+    this.AUTHOR_IMAGE_URL = articleRequest.MAIN_URL + "images/author/"
   }
 
   ngOnInit() {

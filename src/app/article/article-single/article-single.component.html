@@ -10,7 +10,9 @@
             <div id="title">
               <h1>{{data.title}}</h1>
             </div>
-
+            <div class="article-image">
+              <img [src]="IMAGE_URL + data.image" [alt]="data.title">
+            </div>
             <div id="sub-title">
               <h3>{{data.sub_title}}</h3>
             </div>
@@ -37,11 +39,11 @@
               <div id="author">
                 <md-card>
                   <div class="author-image">
-                    IMAGE
+                    <img src="{{AUTHOR_IMAGE_URL + data.author.profile_image}}" alt="{{data.author.name}}" id="author-image">
                   </div>
                   <div class="author-content">
-                    <h3>{{data.author}}</h3>
-                    <p>Author Biography</p>
+                    <h3>{{data.author.name}}</h3>
+                    <p>{{data.author.bio}}</p>
                   </div>
                 </md-card>
               </div>

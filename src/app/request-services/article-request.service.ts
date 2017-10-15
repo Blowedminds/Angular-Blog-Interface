@@ -14,6 +14,7 @@ export class ArticleRequestService {
   public locale: string
 
   public API_URL: string = "article/"
+  public MAIN_URL: string
 
   public IMAGE_URL = this.main.mainDomain + "image/"
 
@@ -25,6 +26,8 @@ export class ArticleRequestService {
     private main: MainRequestService,
     public api: ApiService
   ) {
+    this.MAIN_URL = main.mainDomain
+
     api.getLocale().subscribe(locale => {
       if(locale == 0) return
 
