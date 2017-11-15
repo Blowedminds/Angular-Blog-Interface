@@ -1,4 +1,4 @@
-<md-spinner *ngIf="!menus || !languages || !locale" class="loading"></md-spinner>
+<mat-spinner *ngIf="!menus || !languages || !locale" class="loading"></mat-spinner>
 
 <div class="" *ngIf="menus && languages && locale">
 
@@ -7,15 +7,24 @@
 
       <ul class="navigator">
         <li *ngFor="let one of menus; let i = index">
-          <a [routerLink]="getLocale() + one.url" routerLinkActive="active"><button md-button [mdTooltip]="one.tooltip">{{one.name}}</button></a>
+          <a [routerLink]="getLocale() + one.url" routerLinkActive="active"><button mat-button [matTooltip]="one.tooltip">{{one.name}}</button></a>
         </li>
+        <!--
         <li>
-          <button md-button [mdMenuTriggerFor]="languageMenu">Diller</button>
-          <md-menu #languageMenu="mdMenu">
-            <button md-menu-item (click)="changeLocale(one.slug)" [ngClass]="{'lang-active': locale == one.slug}" *ngFor="let one of languages">{{one.name}}</button>
-          </md-menu>
+          <button mat-button [matMenuTriggerFor]="languageMenu">Diller</button>
+          <mat-menu #languageMenu="matMenu">
+            <button mat-menu-item (click)="changeLocale(one.slug)" [ngClass]="{'lang-active': locale == one.slug}" *ngFor="let one of languages">{{one.name}}</button>
+          </mat-menu>
+        </li>!-->
+        <li>
+          <mat-input-container>
+            <input matInput type="text" #searchBox id="search-box" placeholder="Arama" name="search">
+          </mat-input-container>
+          <a [routerLink]="getLocale() + '/search'" [queryParams]="{ q: searchBox.value}">Ara</a>
         </li>
       </ul>
+
+      <span (click)="changeLocale(one.slug)" [ngClass]="{'lang-active': locale == one.slug}" *ngFor="let one of languages">{{one.slug}}</span>
 
     </div>
   </div>

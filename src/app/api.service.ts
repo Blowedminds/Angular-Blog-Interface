@@ -23,12 +23,11 @@ export class ApiService {
   setLocale(locale: string)
   {
     if(!locale) {
-
       this.changeLocale('tr')
 
       return console.error('Locale is not defined')
     }
-
+    console.log(locale)
     this.locale.next(locale)
 
     return locale
@@ -37,7 +36,7 @@ export class ApiService {
   changeLocale(locale)
   {
     let url = this.router.url
-
+    console.log(this.router)
     url = url.slice(3, url.length)
 
     this.router.navigate([locale + url])
@@ -47,6 +46,4 @@ export class ApiService {
   {
     return this.router.navigate(link, options);
   }
-
-
 }

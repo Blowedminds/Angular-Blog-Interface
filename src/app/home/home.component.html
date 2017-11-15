@@ -1,4 +1,4 @@
-<md-spinner *ngIf="!most_viewed_article || !latest_article || !categories || !latest_article_5" class="loading"></md-spinner>
+<mat-spinner *ngIf="!most_viewed_article || !latest_article || !categories || !latest_article_5" class="loading"></mat-spinner>
 
 <div *ngIf="most_viewed_article && latest_article && latest_article_5 && categories">
 
@@ -45,7 +45,7 @@
 
         <p class="article-sub-title">{{one.content.sub_title}}</p>
         <a [routerLink]="['article', one.slug]">
-          <button md-button>Okumaya Devam ...</button>
+          <button mat-button>Okumaya Devam ...</button>
         </a>
       </div>
 
@@ -82,7 +82,7 @@
 
         <div class="content">
           <div class="" *ngFor="let one of categories; let i = index">
-            {{one.name}}
+            <a [routerLink]="['category', one.slug]">{{one.name}}</a>
           </div>
         </div>
 

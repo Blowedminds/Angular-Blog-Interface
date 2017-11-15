@@ -1,0 +1,7 @@
+/*BUG*/
+*When changing locale, the page redirected to home and position lost
+*When changing locale -in the article-single component, available_languages won't change since locale is not changed in the route
+*changing locale while url has query params causes bug
+/*SHOULD CHANGE*/
+*some menu item do not come from server but as a static
+*Language change menus should change

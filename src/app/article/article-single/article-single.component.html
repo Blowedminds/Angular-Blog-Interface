@@ -1,4 +1,4 @@
-<md-spinner *ngIf="!data || !latest || !most_viewed || !locale" class="loading"></md-spinner>
+<mat-spinner *ngIf="!data || !latest || !most_viewed || !locale" class="loading"></mat-spinner>
 
 <div class="" *ngIf="data && latest && most_viewed && locale">
 
@@ -30,14 +30,15 @@
               </div>
 
               <div id="languages">
-                <span *ngFor="let language of available_languages">Available Languages:
-                  <button md-button (click)="changeLocale(language.slug)">{{language.name}}</button>
-                </span>
+                <span>Available Languages: </span>
+
+                  <button *ngFor="let language of available_languages" mat-button (click)="changeLocale(language.slug)">{{language.name}}</button>
+
                 <p *ngIf="available_languages.length == 0">Bu makalenin başka dilde çevirisi bulunmamaktadır</p>
               </div>
 
               <div id="author">
-                <md-card>
+                <mat-card>
                   <div class="author-image">
                     <img src="{{AUTHOR_IMAGE_URL + data.author.profile_image}}" alt="{{data.author.name}}" id="author-image">
                   </div>
@@ -45,7 +46,7 @@
                     <h3>{{data.author.name}}</h3>
                     <p>{{data.author.bio}}</p>
                   </div>
-                </md-card>
+                </mat-card>
               </div>
 
             </div>

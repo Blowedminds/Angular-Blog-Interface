@@ -13,8 +13,9 @@ export class ArticleRequestService {
 
   public locale: string
 
-  public API_URL: string = "article/"
-  public MAIN_URL: string
+  public ARTICLE_API_URL: string = "article/"
+
+  public MAIN_PUBLIC_URL: string = this.main.mainDomain + this.main.apiDomain
 
   public IMAGE_URL = this.main.mainDomain + "image/"
 
@@ -26,8 +27,6 @@ export class ArticleRequestService {
     private main: MainRequestService,
     public api: ApiService
   ) {
-    this.MAIN_URL = main.mainDomain
-
     api.getLocale().subscribe(locale => {
       if(locale == 0) return
 
@@ -47,7 +46,7 @@ export class ArticleRequestService {
 
   getArticleSingle(slug: string, locale_id: string): Observable<any>
   {
-    const url = this.main.MAIN_API_URL + locale_id + "/" + this.API_URL + "article-single/" + slug
+    const url = this.MAIN_PUBLIC_URL + locale_id + "/" + this.ARTICLE_API_URL + "article-single/" + slug
 
     return this.http
                     .get(url, { headers: this.headers })
@@ -65,8 +64,27 @@ export class ArticleRequestService {
                     .catch(error => this.main.handleError(error))
   }
 
+  getArticlesByCategory(category_slug: string): Observable<any>
+  {
+    const url = this.makeRequestURL("category/" + category_slug)
+
+    return this.http
+                    .get(url, { headers: this.headers })
+                    //.map(response => response)
+                    .catch(error => this.main.handleError(error))
+  }
+
+  getArticleSearch(query: string): Observable<any>
+  {
+    const url = this.makeRequestURL("search?q=" + query)
+
+    return this.http
+                    .get(url, { headers: this.headers})
+                    .catch(error => this.main.handleError(error))
+  }
+
   makeRequestURL(url: string)
   {
-    return this.main.MAIN_API_URL + this.locale + "/" + this.API_URL + url
+    return this.MAIN_PUBLIC_URL + this.locale + "/" + this.ARTICLE_API_URL + url
   }
 }

@@ -40,7 +40,7 @@ export class ArticleSingleComponent implements OnInit {
   ) {
     this.IMAGE_URL = articleRequest.IMAGE_URL + "image/"
 
-    this.AUTHOR_IMAGE_URL = articleRequest.MAIN_URL + "images/author/"
+    this.AUTHOR_IMAGE_URL = articleRequest.MAIN_PUBLIC_URL + "images/author/"
   }
 
   ngOnInit() {
@@ -50,6 +50,7 @@ export class ArticleSingleComponent implements OnInit {
       this.data = null
       this.most_viewed = null
       this.latest = null
+      this.available_languages = null
 
       if(!this.locale){
         let rq2 = this.route.params.switchMap( (params: Params) => {

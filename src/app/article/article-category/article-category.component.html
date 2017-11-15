@@ -1,0 +1,8 @@
+<mat-spinner *ngIf="!articles || !locale || !category" class="loading"></mat-spinner>
+
+<div class="" *ngIf="articles && locale && category">
+  <h1>{{category.name}}</h1>
+  <div class="" *ngFor="let one of articles.data">
+    <a [routerLink]="[ '/' + locale + '/article', one.article.slug]">{{one.title}}</a>
+  </div>
+</div>

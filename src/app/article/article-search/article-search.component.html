@@ -1,0 +1,10 @@
+<div class="">
+  <mat-input-container>
+    <input matInput type="text" #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Arama" name="description" required>
+  </mat-input-container>
+
+  <div class="" *ngFor="let one of articles | async">
+    ASD
+  </div>
+
+</div>

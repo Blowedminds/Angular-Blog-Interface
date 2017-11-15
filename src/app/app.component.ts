@@ -30,14 +30,10 @@ export class AppComponent {
     this.router.events.filter( e => e instanceof NavigationEnd).subscribe( e => {
       let locale = route.root.firstChild.snapshot.params['locale']
 
-      if(this.locale != locale || (typeof this.locale === "undefined" && typeof locale === "undefined")){
-
+      if(this.locale != locale || (typeof this.locale === "undefined" && typeof locale === "undefined"))
         api.setLocale(locale)
 
-
-      }
     })
-
   }
 
   ngOnInit() {
