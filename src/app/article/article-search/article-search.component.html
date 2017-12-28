@@ -1,10 +1,27 @@
 <div class="">
-  <mat-input-container>
+<!--  <mat-input-container>
     <input matInput type="text" #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Arama" name="description" required>
   </mat-input-container>
+!-->
+  <form #f="ngForm" (ngSubmit)="navigate(f.value.query)">
+    <mat-input-container>
+       <input matInput type="text" placeholder="Arama" [ngModel]="query" name="query" required>
+     </mat-input-container>
 
-  <div class="" *ngFor="let one of articles | async">
-    ASD
+     <button mat-button type="submit">Ara</button>
+  </form>
+
+  <div class="" *ngIf="search_results">
+    <div class="" *ngFor="let one of search_results">
+      <h2>{{one.title}}</h2>
+    </div>
+
+    <div *ngIf="search_results.length == 0">
+      Arama ile ilgili sonuç bulamadık.
+    </div>
   </div>
+
+  <mat-spinner *ngIf="!search_results" class="loading"></mat-spinner>
+
 
 </div>

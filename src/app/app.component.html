@@ -9,18 +9,19 @@
         <li *ngFor="let one of menus; let i = index">
           <a [routerLink]="getLocale() + one.url" routerLinkActive="active"><button mat-button [matTooltip]="one.tooltip">{{one.name}}</button></a>
         </li>
-        <!--
+
         <li>
-          <button mat-button [matMenuTriggerFor]="languageMenu">Diller</button>
+          <button mat-button [matMenuTriggerFor]="languageMenu">Ara</button>
           <mat-menu #languageMenu="matMenu">
-            <button mat-menu-item (click)="changeLocale(one.slug)" [ngClass]="{'lang-active': locale == one.slug}" *ngFor="let one of languages">{{one.name}}</button>
+            <mat-input-container>
+              <input matInput type="text" #searchBox id="search-box" (click)="$event.stopPropagation()" placeholder="Arama" name="search" autofocus>
+            </mat-input-container>
+            <a [routerLink]="getLocale() + '/search'" [queryParams]="{ q: searchBox.value}">Ara</a>
           </mat-menu>
-        </li>!-->
+        </li>
         <li>
-          <mat-input-container>
-            <input matInput type="text" #searchBox id="search-box" placeholder="Arama" name="search">
-          </mat-input-container>
-          <a [routerLink]="getLocale() + '/search'" [queryParams]="{ q: searchBox.value}">Ara</a>
+
+
         </li>
       </ul>
 

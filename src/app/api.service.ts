@@ -27,7 +27,7 @@ export class ApiService {
 
       return console.error('Locale is not defined')
     }
-    console.log(locale)
+
     this.locale.next(locale)
 
     return locale
@@ -35,15 +35,20 @@ export class ApiService {
 
   changeLocale(locale)
   {
-    let url = this.router.url
-    console.log(this.router)
-    url = url.slice(3, url.length)
+    let url : string = this.router.url
 
-    this.router.navigate([locale + url])
+    url = url.slice(3)
+
+    this.router.navigateByUrl(locale + url)
   }
 
   navigate(link: Array<any>, options: any = {})
   {
     return this.router.navigate(link, options);
+  }
+
+  navigateByUrl(link: string)
+  {
+    return this.router.navigateByUrl(link);
   }
 }
