@@ -40,7 +40,7 @@ export class ArticleSingleComponent implements OnInit {
   ) {
     this.IMAGE_URL = articleRequest.IMAGE_URL + "image/"
 
-    this.AUTHOR_IMAGE_URL = articleRequest.MAIN_PUBLIC_URL + "images/author/"
+    this.AUTHOR_IMAGE_URL = articleRequest.MAIN_URL + "images/author/"
   }
 
   ngOnInit() {

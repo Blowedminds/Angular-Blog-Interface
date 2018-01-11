@@ -26,38 +26,21 @@ export class MainRequestService {
   public handleError(error: any, router: any = null): Promise<any> {
     console.error('An error occurred', error)
 
-    let jsError = error.error
+    error = error.error
 
-    if(typeof jsError.pop_up !== "undefined" && (jsError.pop_up || jsError.pop_up === "true"))
-      swal(jsError.header, jsError.message, jsError.state)
+    if(typeof error.pop_up !== "undefined" && error.pop_up && error.pop_up === "true")
+      swal(error.header, error.message, error.state)
 
-    if(typeof jsError.link !== "undefined")
-      switch(jsError.link){
-        case "home":
-          let rq1 = this.api.getLocale().subscribe( locale => {
-            if(locale == 0) return
+    if(typeof error.link !== "undefined"){
 
-            this.api.navigate(["/" + locale])
+      const locale = this.api.getLocale().source.value || 0
 
-            rq1.unsubscribe()
-          })
-          break
-        default:
-          break
-      }
+      if(locale == 0) return
+
+      this.api.navigate(["/" + locale + error.link])
+    }
 
     return Promise.reject(error.message || error)
   }
-  //
-  // public articleNotFoundError(error: any, router: any = null): Promise<any>
-  // {
-  //   console.error('An error occurred', error)
-  //
-  //   let jsError = error.error
-  //   if(typeof jsError.pop_up !== "undefined" && (jsError.pop_up || jsError.pop_up === "true"))
-  //   swal(jsError.header, jsError.message, jsError.state)
-  //
-  //   return Promise.reject(error.message || error)
-  // }
 
 }

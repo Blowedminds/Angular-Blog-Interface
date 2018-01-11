@@ -11,13 +11,19 @@
         </li>
 
         <li>
-          <button mat-button [matMenuTriggerFor]="languageMenu">Ara</button>
+          <button mat-button [matMenuTriggerFor]="languageMenu" (click)="f.resetForm()">Ara</button>
+
           <mat-menu #languageMenu="matMenu">
-            <mat-input-container>
-              <input matInput type="text" #searchBox id="search-box" (click)="$event.stopPropagation()" placeholder="Arama" name="search" autofocus>
-            </mat-input-container>
-            <a [routerLink]="getLocale() + '/search'" [queryParams]="{ q: searchBox.value}">Ara</a>
+              <form (ngSubmit)="search(f)" #f="ngForm" id="search-form">
+                <mat-input-container>
+                  <input matInput type="text" #searchBox id="search-box" (click)="$event.stopPropagation()" placeholder="Arama" name="search" autofocus required ngModel>
+                </mat-input-container>
+
+                <button mat-button type="submit" [disabled]="!f.valid">Ara</button>
+              </form>
+
           </mat-menu>
+
         </li>
         <li>
 

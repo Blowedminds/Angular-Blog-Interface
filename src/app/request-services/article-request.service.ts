@@ -17,6 +17,8 @@ export class ArticleRequestService {
 
   public MAIN_PUBLIC_URL: string = this.main.mainDomain + this.main.apiDomain
 
+  public MAIN_URL = this.main.mainDomain
+
   public IMAGE_URL = this.main.mainDomain + "image/"
 
   private headers = this.main.headers
@@ -36,7 +38,7 @@ export class ArticleRequestService {
 
   getMostViewed(): Observable<any>
   {
-    const url = this.makeRequestURL("most-viewed")
+    const url = this.makeRequestURL("most-viewed")// this.MAIN_PUBLIC_URL + this.locale + "/" + "most-viewed"
 
     return this.http
                     .get(url, { headers: this.headers })
@@ -46,7 +48,7 @@ export class ArticleRequestService {
 
   getArticleSingle(slug: string, locale_id: string): Observable<any>
   {
-    const url = this.MAIN_PUBLIC_URL + locale_id + "/" + this.ARTICLE_API_URL + "article-single/" + slug
+    const url = this.makeRequestURL("article-single/" + slug)
 
     return this.http
                     .get(url, { headers: this.headers })
@@ -56,7 +58,7 @@ export class ArticleRequestService {
 
   getLatest(): Observable<any>
   {
-    const url = this.makeRequestURL("latest")
+    const url =  this.makeRequestURL("latest") //this.MAIN_PUBLIC_URL + this.locale + "/" +  "latest"
 
     return this.http
                     .get(url, { headers: this.headers })

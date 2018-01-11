@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, NavigationEnd, Router } from '@angular/router';
+import { NgForm }                   from '@angular/forms';
 
 import { PublicRequestService }  from './request-services/public-request.service'
 import { ApiService } from './api.service'
@@ -39,6 +40,7 @@ export class AppComponent {
   ngOnInit() {
 
     this.api.getLocale().subscribe( locale => {
+
       if(locale == 0) return
 
       let rq1 = this.publicRequest.getMenus().subscribe(response => {
@@ -72,7 +74,14 @@ export class AppComponent {
     })
 
 
-    this.publicRequest.getLanguages().subscribe(response => this.languages = response)
+    this.publicRequest.getLanguages().subscribe(response => {
+
+      if(!response.find( language  => language.slug === this.locale))
+        this.api.setLocale(response[1].slug)
+
+      this.languages = response
+
+    })
   }
 
   getLocale()
@@ -83,5 +92,14 @@ export class AppComponent {
   changeLocale(locale: string)
   {
     return this.api.changeLocale(locale)
+  }
+
+  search(f: NgForm)
+  {
+      this.api.navigate([this.locale + "/search"], {
+        queryParams: {
+          'q' : f.value.search
+        }
+      });
   }
 }

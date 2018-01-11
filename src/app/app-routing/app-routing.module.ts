@@ -18,11 +18,10 @@ const routes: Routes = [
     { path: "article/:slug", component: ArticleSingleComponent },
     { path: "category/:category_slug", component: ArticleCategoryComponent },
     { path: "search", component: ArticleSearchComponent },
-    { path: "about-me", component: AboutMeComponent },
+    { path: "about-dk", component: AboutMeComponent },
+    { path: '**', component: PageNotFoundComponent }
   ]},
-
   { path: '**', component: PageNotFoundComponent }
-
 ];
 
 @NgModule({
