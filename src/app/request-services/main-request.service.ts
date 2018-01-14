@@ -14,7 +14,7 @@ export class MainRequestService {
 
   public mainDomain: string = "http://localhost:8000/";
 
-  public apiDomain: string = "public/";
+  public apiDomain: string = "reader/";
 
   public MAIN_API_URL = this.mainDomain + this.apiDomain
 
@@ -31,13 +31,16 @@ export class MainRequestService {
     if(typeof error.pop_up !== "undefined" && error.pop_up && error.pop_up === "true")
       swal(error.header, error.message, error.state)
 
-    if(typeof error.link !== "undefined"){
+    if(typeof error.redirect_link !== "undefined"){
 
-      const locale = this.api.getLocale().source.value || 0
+      let rq1 = this.api.getLocale().subscribe( locale => {
 
-      if(locale == 0) return
+        if(locale == 0) return
 
-      this.api.navigate(["/" + locale + error.link])
+        this.api.navigate(["/" + locale + error.redirect_link])
+        
+      }).unsubscribe()
+
     }
 
     return Promise.reject(error.message || error)

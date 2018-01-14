@@ -1,4 +1,6 @@
-<mat-spinner *ngIf="!data || !latest || !most_viewed || !locale" class="loading"></mat-spinner>
+<div class="loading" *ngIf="!data || !latest || !most_viewed || !locale">
+  <mat-spinner></mat-spinner>
+</div>
 
 <div class="" *ngIf="data && latest && most_viewed && locale">
 

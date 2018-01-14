@@ -9,7 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "assets/svg/logo.svg"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -20,9 +21,10 @@
       "prefix": "app",
       "styles": [
         "styles.sass",
-        "assets/css/bootstrap.min.css",
+        "../node_modules/bulma/bulma.sass",
         "assets/css/tiny-slider.css",
-        "../src/assets/css/sweetalert2.min.css"
+        "../src/assets/css/sweetalert2.min.css",
+        "../src/assets/css/font-awesome.min.css"
       ],
       "scripts": [
         "../node_modules/hammerjs/hammer.js",

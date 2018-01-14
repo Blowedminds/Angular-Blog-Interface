@@ -77,7 +77,7 @@ export class AppComponent {
     this.publicRequest.getLanguages().subscribe(response => {
 
       if(!response.find( language  => language.slug === this.locale))
-        this.api.setLocale(response[1].slug)
+        this.api.setLocale(response[0].slug)
 
       this.languages = response
 

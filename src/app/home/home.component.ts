@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 
   most_viewed_article: any
 
-  latest_article: any
+  articles: any
 
-  latest_article_5: any
+  latest_articles: any
 
   IMAGE_URL: any;
 
@@ -87,20 +87,20 @@ export class HomeComponent implements OnInit {
             array.push(data[i])
         }
 
-        this.latest_article_5 = array
+        this.latest_articles = array
 
-        this.latest_article = data.slice(length, data.length)
+        this.articles = data.slice(length, data.length)
       }
     })
 
     let rq3 = globalDataService.categories.subscribe( data => this.categories = data)
 
     this.subs.add(rq1); this.subs.add(rq2); this.subs.add(rq3)
-
   }
 
 
-  ngOnInit() {
+  ngOnInit()
+  {
 
     let rq1 = this.api.getLocale().subscribe( locale => {
 
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
 
         this.most_viewed_article = null
 
-        this.latest_article = null
+        this.latest_articles = null
 
         this.slider = null
       }
@@ -155,9 +155,12 @@ export class HomeComponent implements OnInit {
                 });
   }
 
-  findCategory(id: number)
+  findCategory(category: any)
   {
-    return this.categories.find( obj => obj.id === id)
+    if(!category)
+      return;
+
+    return this.categories.find( obj => obj.id === category.id).name
   }
 
 }

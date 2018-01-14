@@ -1,4 +1,6 @@
-<mat-spinner *ngIf="!data" class="loading"></mat-spinner>
+<div *ngIf="!data" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
 
 <div class="" *ngIf="data">
   {{data}}

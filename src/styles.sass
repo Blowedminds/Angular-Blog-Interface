@@ -19,16 +19,24 @@ a:hover
 
 #main-menu
   background: $menu-back-color
-  height: 100px
   color: $menu-a-color
 
-  .container
-    display: flex
-    align-items: center
-    justify-content: flex-end
-    height: 100%
   a
     color: $menu-a-color
+
+  .logo
+    img
+      width: 100%
+      height: 100%
+  .nav
+    background: $menu-nav-color
+    display: flex
+    justify-content: flex-end
+    align-items: center
+
+    ul
+      li
+        padding: 1em 1.5em
 
 .lang-active
   background-color: orange !important
@@ -40,15 +48,9 @@ ul.navigator
   li
     display: inline-block
 
-.cs-container
-
-.row
-  margin: 0 !important
-
 .loading
-  position: absolute !important
-  top: 40%
   left: 45%
+  top: 0
 /*Article*/
 .article-single
   background: $article-single-background
@@ -88,13 +90,6 @@ ul.navigator
       margin-bottom: 1em
       border-radius: 2px
 
-    ul
-      list-style: none
-      padding: 0
-
-    .article-additional
-      p
-        margin: 0
 /*Footer*/
 .footer
   width: 100%
