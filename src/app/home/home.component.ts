@@ -17,7 +17,7 @@ declare var tns: any
 })
 export class HomeComponent implements OnInit {
 
-  most_viewed_article: any
+  most_viewed: any
 
   articles: any
 
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
 
     this.timeAgoInstance = timeago(null, 'tr_TR')
 
-    let rq1 = globalDataService.mostViewedArticle.subscribe( data => this.most_viewed_article = data)
+    let rq1 = globalDataService.mostViewedArticle.subscribe( data => this.most_viewed = data)
 
     let rq2 = globalDataService.latestArticle.subscribe( data => {
 
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
 
       if((this.locale != locale) && (this.locale)){
 
-        this.most_viewed_article = null
+        this.most_viewed = null
 
         this.latest_articles = null
 

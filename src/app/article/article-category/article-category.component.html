@@ -1,8 +1,35 @@
-<mat-spinner *ngIf="!articles || !locale || !category" class="loading"></mat-spinner>
+<div class="loading" *ngIf="!articles || !locale || !category">
+  <mat-spinner></mat-spinner>
+</div>
 
-<div class="" *ngIf="articles && locale && category">
-  <h1>{{category.name}}</h1>
-  <div class="" *ngFor="let one of articles.data">
-    <a [routerLink]="[ '/' + locale + '/article', one.article.slug]">{{one.title}}</a>
+<div class="detail-content"  *ngIf="articles && locale && category">
+  <div class="container">
+    <div class="columns">
+
+      <div class="column is-three-quarters">
+
+        <h1>{{category.name}}</h1>
+
+        <div class="detail-result">
+          <div class="results">
+
+            <div class="" *ngFor="let one of articles.data">
+              <mat-card>
+                <div class="image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'"></div>
+
+                <a [routerLink]="[ '/' + locale + '/article', one.slug]">{{one.contents[0].title}}</a>
+              </mat-card>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="column">
+
+      </div>
+
+    </div>
   </div>
 </div>

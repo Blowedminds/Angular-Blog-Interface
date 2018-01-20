@@ -38,7 +38,7 @@ export class MainRequestService {
         if(locale == 0) return
 
         this.api.navigate(["/" + locale + error.redirect_link])
-        
+
       }).unsubscribe()
 
     }

@@ -12,7 +12,7 @@ import { Subscription, BehaviorSubject} from 'rxjs'
  @Component({
   selector: 'app-article-search',
   templateUrl: './article-search.component.html',
-  styleUrls: ['./article-search.component.css']
+  styleUrls: ['./article-search.component.sass']
 })
 export class ArticleSearchComponent implements OnInit {
 
@@ -26,24 +26,29 @@ export class ArticleSearchComponent implements OnInit {
 
   locale: string = ""
 
+  IMAGE_URL: string = "";
+
   constructor(
     private articleRequest: ArticleRequestService,
     private api: ApiService,
     private route: ActivatedRoute,
     private router: Router,
     private globalDataService: GlobalDataService
-  ) {}
+  ) {
+
+    this.IMAGE_URL = this.articleRequest.IMAGE_URL + "image/"
+  }
 
   ngOnInit() {
 
     let rq2 = this.api.getLocale().subscribe( locale => {
-
-                this.locale = this.locale === "" ? locale : this.locale
-
-                if(this.locale !== locale)
-                  this.search(this.query)
-
                 this.locale = locale
+                // this.locale = this.locale === "" ? locale : this.locale
+                //
+                // if(this.locale !== locale)
+                //   this.search(this.query)
+                //
+                // this.locale = locale
               })
 
     let rq1 = this.route.queryParams
