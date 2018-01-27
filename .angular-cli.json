@@ -21,7 +21,6 @@
       "prefix": "app",
       "styles": [
         "styles.sass",
-        "../node_modules/bulma/bulma.sass",
         "assets/css/tiny-slider.css",
         "../src/assets/css/sweetalert2.min.css",
         "../src/assets/css/font-awesome.min.css"
