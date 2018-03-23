@@ -10,7 +10,8 @@ export class RoutingListService {
       'article': { url: '{}/article/',
       },
       'most-viewed': { url: '{}/most-viewed' },
-      'latest': { url: '{}/latest' }
+      'latest': { url: '{}/latest' },
+      'category': { url: '{}/category/' }
     },
     image: { url: 'image/',
       'image': { url: 'image/' },
@@ -25,6 +26,8 @@ export class RoutingListService {
       'image': { url: 'images/',
         'author': { url: 'author/' }
       }
+    },
+    search: { url: '{}/search/',
     }
   };
 

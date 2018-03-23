@@ -44,7 +44,7 @@ export class ArticleCategoryComponent implements OnInit {
 
           this.category_slug = param['category_slug']
 
-          let rq3 = this.cacheService.get('categories', this.articleRequestService.makeGetRequest('categories'))
+          let rq3 = this.cacheService.get('categories', this.articleRequestService.makeGetRequest('user.categories'))
             .subscribe( categories =>
               this.category = categories ? categories.find( obj => obj.slug === param['category_slug']) : null
             )

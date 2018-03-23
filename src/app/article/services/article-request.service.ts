@@ -46,7 +46,7 @@ export class ArticleRequestService extends MainRequestService{
 
   getArticlesByCategory(category_slug: string): Observable<any>
   {
-    const url = this.makeUrl("category/", category_slug)
+    const url = this.makeUrl("article.category", category_slug)
 
     return this.http
                     .get(url, this.options)

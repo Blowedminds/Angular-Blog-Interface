@@ -9,8 +9,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 const routes: Routes = [
   { path: ":locale", component: NavigationComponent, children: [
       { path: "article/:slug", component: ArticleComponent },
-      // { path: "category/:category_slug", component: ArticleCategoryComponent },
-      // { path: "search", component: ArticleSearchComponent },
+      { path: "category/:category_slug", component: ArticleCategoryComponent },
+      { path: "search", component: ArticleSearchComponent },
     ]
   },
 ];
