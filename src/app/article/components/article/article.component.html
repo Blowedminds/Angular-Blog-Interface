@@ -1,0 +1,56 @@
+<div class="loading" *ngIf="!isPageReady">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="" *ngIf="isPageReady">
+  <div class="container">
+    <section class="article">
+
+      <div class="article-image">
+        <img [src]="IMAGE_URL + article.image" alt="">
+      </div>
+
+      <div class="article-content">
+
+        <div class="header">
+          <h1 class="title has-text-centered">{{article.content.title}}</h1>
+
+          <h2 class="sub-title has-text-centered">{{article.content.sub_title}}</h2>
+        </div>
+
+        <div class="body" [innerHTML]="article.content.body"></div>
+
+      </div>
+
+      <div class="article-tiles">
+
+        <div class="categories">
+          <div class="category" *ngFor="let category of article.categories">
+            <span>{{category.name}}</span>
+          </div>
+        </div>
+
+        <div class="available_languages">
+          <div class="available-language" *ngFor="let available_language of article.available_languages">
+            <span>{{available_language.name}}</span>
+          </div>
+        </div>
+
+        <div class="author">
+
+          <div class="profile-image">
+            <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
+          </div>
+
+          <div class="desc">
+            <p>{{article.author.name}}</p>
+            <p>{{article.author.biography}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+</div>

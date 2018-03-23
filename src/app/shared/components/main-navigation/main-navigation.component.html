@@ -1,0 +1,65 @@
+<div class="loading" *ngIf="!isPageReady">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="" *ngIf="isPageReady">
+
+  <div id="main-menu">
+    <div class="container">
+
+      <div class="logo">
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <img src="/assets/svg/logo.svg">
+              </div>
+
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <span
+                  (click)="changeLocale(one.slug)"
+                  [ngClass]="{'lang-active': locale == one.slug}"
+                  *ngFor="let one of languages">
+                    {{one.slug}}
+                </span>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="nav">
+        <nav class="header">
+
+          <ul class="navigator">
+
+            <li *ngFor="let one of menus; let i = index">
+              <a [routerLink]="localizedUrl(one.url)" routerLinkActive="active">{{one.name}}</a>
+            </li>
+
+            <li>
+
+              <span [matMenuTriggerFor]="languageMenu" (click)="f.resetForm()"><i class="fa fa-search" aria-hidden="true"></i></span>
+
+              <mat-menu #languageMenu="matMenu">
+                  <form (ngSubmit)="search(f)" #f="ngForm" id="search-form">
+                    <mat-input-container>
+                      <input matInput type="text" #searchBox id="search-box" (click)="$event.stopPropagation()" placeholder="Arama" name="search" autofocus required ngModel>
+                    </mat-input-container>
+                    <button mat-button type="submit" [disabled]="!f.valid">Ara</button>
+                  </form>
+              </mat-menu>
+            </li>
+          </ul>
+
+
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="router">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
