@@ -21,11 +21,11 @@
         <div class="detail-result search-result">
           <div class="results" *ngIf="search_results">
 
-            <div class="" *ngFor="let one of search_results">
+            <div class="" *ngFor="let result of search_results">
               <mat-card>
-                <div class="image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'"></div>
+                <div class="image" [style.background-image]="'url(' + IMAGE_URL + result.image + ')'"></div>
 
-                <a [routerLink]="[ '/' + locale + '/article', one.slug]">{{one.contents[0].title}}</a>
+                <a [routerLink]="[ '/' + locale + '/article', result.slug]">{{result.content.title}}</a>
               </mat-card>
             </div>
 

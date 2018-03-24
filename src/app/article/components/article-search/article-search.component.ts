@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, NavigationEnd, Router  } from '@angular/router';
+import { ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { NgForm } from '@angular/forms'
 
 import { ArticleRequestService }   from '../../services/article-request.service'
@@ -30,8 +30,7 @@ export class ArticleSearchComponent implements OnInit {
   constructor(
     private articleRequestService: ArticleRequestService,
     private helpersService: HelpersService,
-    private route: ActivatedRoute,
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
 
     this.IMAGE_URL = this.articleRequestService.makeUrl('image.image');
@@ -39,7 +38,7 @@ export class ArticleSearchComponent implements OnInit {
 
   ngOnInit() {
 
-    let rq2 = this.helpersService.getLocale().subscribe( locale => {
+    let rq2 = this.helpersService.listenLocale().subscribe( locale => {
                 this.locale = locale
                 // this.locale = this.locale === "" ? locale : this.locale
                 //
@@ -49,7 +48,7 @@ export class ArticleSearchComponent implements OnInit {
                 // this.locale = locale
               })
 
-    let rq1 = this.route.queryParams
+    let rq1 = this.activatedRoute.queryParams
                 .switchMap( (params: Params) => [params['q']])
                 .subscribe( response => {
                    this.search(response)
@@ -79,6 +78,6 @@ export class ArticleSearchComponent implements OnInit {
 
   navigate(query: string)
   {
-    this.helpersService.navigate([this.helpersService.getLocale + '/search'], { queryParams: { q: query}})
+    this.helpersService.navigate([this.helpersService.getLocale() + '/search'], { queryParams: { q: query}})
   }
 }

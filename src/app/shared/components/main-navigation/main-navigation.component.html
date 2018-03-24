@@ -17,10 +17,10 @@
             <div class="level-right">
               <div class="level-item">
                 <span
-                  (click)="changeLocale(one.slug)"
-                  [ngClass]="{'lang-active': locale == one.slug}"
-                  *ngFor="let one of languages">
-                    {{one.slug}}
+                  (click)="changeLocale(language.slug)"
+                  [ngClass]="{'lang-active': locale == language.slug}"
+                  *ngFor="let language of languages">
+                    {{language.slug}}
                 </span>
               </div>
             </div>
@@ -32,22 +32,42 @@
 
           <ul class="navigator">
 
-            <li *ngFor="let one of menus; let i = index">
-              <a [routerLink]="localizedUrl(one.url)" routerLinkActive="active">{{one.name}}</a>
+            <li *ngFor="let menu of menus; let i = index">
+              <a [routerLink]="localizedUrl(menu.url)" routerLinkActive="active">{{menu.name}}</a>
             </li>
 
             <li>
+              <div class="dropdown  is-right" #dropdown>
+                <div class="dropdown-trigger">
+                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" (click)="toggle(dropdown)">
+                    <span>Ara</span>
+                    <span class="icon is-small">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content">
+                    <div class="dropdown-item">
+                      <div class="level">
+                        <div class="level-left">
+                          <div class="level-item">
+                            <mat-input-container>
+                              <input matInput type="text" placeholder="Terim" #query>
+                            </mat-input-container>
+                          </div>
+                        </div>
+                        <div class="level-right">
+                          <div class="level-item">
+                            <button mat-button (click)="search(query.value)">Ara</button>
+                          </div>
+                        </div>
+                      </div>
 
-              <span [matMenuTriggerFor]="languageMenu" (click)="f.resetForm()"><i class="fa fa-search" aria-hidden="true"></i></span>
-
-              <mat-menu #languageMenu="matMenu">
-                  <form (ngSubmit)="search(f)" #f="ngForm" id="search-form">
-                    <mat-input-container>
-                      <input matInput type="text" #searchBox id="search-box" (click)="$event.stopPropagation()" placeholder="Arama" name="search" autofocus required ngModel>
-                    </mat-input-container>
-                    <button mat-button type="submit" [disabled]="!f.valid">Ara</button>
-                  </form>
-              </mat-menu>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </li>
           </ul>
 

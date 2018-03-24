@@ -27,7 +27,7 @@ export class RoutingListService {
         'author': { url: 'author/' }
       }
     },
-    search: { url: '{}/search/',
+    search: { url: 'reader/{}/search/',
     }
   };
 

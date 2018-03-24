@@ -13,9 +13,9 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     HomeModule, //Home Module must be on top to be loaded first
-    BrowserAnimationsModule,
-    ArticleModule,
     AppRoutingModule,
+    ArticleModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

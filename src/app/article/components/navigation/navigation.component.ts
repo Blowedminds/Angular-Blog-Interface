@@ -11,20 +11,14 @@ import { MainNavigationComponent, MainRequestService, CacheService, HelpersServi
 export class NavigationComponent extends MainNavigationComponent {
 
   constructor(
-    mainRequestService: MainRequestService,
-    helpersService: HelpersService,
-    cacheService: CacheService,
-    activatedRoute: ActivatedRoute,
-    router: Router
+    private mainRequestService: MainRequestService,
+    private helpersService: HelpersService,
+    private cacheService: CacheService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   )
   {
     super();
-
-    this.mainRequestService = mainRequestService;
-    this.helpersService = helpersService;
-    this.cacheService = cacheService;
-    this.activatedRoute = activatedRoute;
-    this.router = router;
 
     this.router.events.filter( e => e instanceof NavigationEnd).subscribe( e => {
 
@@ -68,5 +62,14 @@ export class NavigationComponent extends MainNavigationComponent {
   localizedUrl(url: string)
   {
     return '/' + this.helpersService.getLocale() + url;
+  }
+
+  search(query)
+  {
+    this.helpersService.navigate([this.helpersService.getLocale() + '/search'], {
+      queryParams: {
+        'q': query
+      }
+    });
   }
 }

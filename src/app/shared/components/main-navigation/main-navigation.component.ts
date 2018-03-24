@@ -14,12 +14,6 @@ export class MainNavigationComponent implements OnInit {
 
   locale: string;
 
-  mainRequestService: any;
-  helpersService: any;
-  cacheService: any;
-  activatedRoute: any;
-  router: any;
-
   get isPageReady()
   {
     return this.menus && this.languages && this.locale;
@@ -28,5 +22,10 @@ export class MainNavigationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
+
+  toggle(dropdown: any)
+  {
+    dropdown.classList.toggle('is-active')
+  }
 
 }
