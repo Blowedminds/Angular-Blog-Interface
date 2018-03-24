@@ -10,7 +10,6 @@ body
   margin: 0
   font-family: 'Open Sans', sans-serif
   background-color: $body-background-color
-  color: white//$body-color
 a
   color: $menu-a-color
 a:hover
@@ -74,43 +73,28 @@ section
         a
           color: white
 /*Article*/
-.article-single
-  background: $article-single-background
-  padding: 2em
+.article
+  h1
+    text-transform: capitalize
+    text-align: center
+    margin: 1em
+    font-size: 34px
+  p
+    line-height: 1.85
+    font-size: 19px
+    margin-top: 2em
+    margin-bottom: 2em
+    font-family: 'Times New Roman'
+    color: black
 
-  .article
-    background: $article-content-background
-    color: $article-content-color
-    padding: 1em
-    padding-right: 100px
-    padding-left: 40px
-
-    #sub-title
-      border-bottom: 1px solid grey
-      h3
-        color: black
-        font-size: 15px
-        text-transform: capitalize
-        font-style: italic
-        font-weight: 600
-    h1
-      text-transform: capitalize
-      text-align: center
-      margin: 1em
-      font-size: 34px
-    p
-      line-height: 1.85
-      font-size: 17px
-      margin-top: 2em
-      margin-bottom: 2em
-    img
-      width: 75%
-      height: auto
-      display: block
-      margin: auto
-      margin-top: 1em
-      margin-bottom: 1em
-      border-radius: 2px
+  img
+    width: 75%
+    height: auto
+    display: block
+    margin: auto
+    margin-top: 1em
+    margin-bottom: 1em
+    border-radius: 2px
 /*Footer*/
 .footer
   width: 100%

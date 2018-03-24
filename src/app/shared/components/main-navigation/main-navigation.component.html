@@ -1,0 +1,85 @@
+<div class="loading" *ngIf="!isPageReady">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="" *ngIf="isPageReady">
+
+  <div id="main-menu">
+    <div class="container">
+
+      <div class="logo">
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <img src="/assets/svg/logo.svg">
+              </div>
+
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <span
+                  (click)="changeLocale(language.slug)"
+                  [ngClass]="{'lang-active': locale == language.slug}"
+                  *ngFor="let language of languages">
+                    {{language.slug}}
+                </span>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="nav">
+        <nav class="header">
+
+          <ul class="navigator">
+
+            <li *ngFor="let menu of menus; let i = index">
+              <a [routerLink]="localizedUrl(menu.url)" routerLinkActive="active">{{menu.name}}</a>
+            </li>
+
+            <li>
+              <div class="dropdown  is-right" #dropdown>
+                <div class="dropdown-trigger">
+                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" (click)="toggle(dropdown)">
+                    <span>Ara</span>
+                    <span class="icon is-small">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content">
+                    <div class="dropdown-item">
+                      <div class="level">
+                        <div class="level-left">
+                          <div class="level-item">
+                            <mat-input-container>
+                              <input matInput type="text" placeholder="Terim" #query>
+                            </mat-input-container>
+                          </div>
+                        </div>
+                        <div class="level-right">
+                          <div class="level-item">
+                            <button mat-button (click)="search(query.value)">Ara</button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="router">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
