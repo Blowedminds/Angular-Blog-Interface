@@ -24,6 +24,10 @@
 
       <div class="article-tiles">
 
+        <div class="discuss">
+          <a [href]="DISCUSS_URL + 'room/' + article.slug" target="-_blank">Tartışma Odası</a>
+        </div>
+
         <div class="categories">
           <div class="category" *ngFor="let category of article.categories">
             <span>{{category.name}}</span>

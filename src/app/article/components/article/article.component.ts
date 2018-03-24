@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { ArticleRequestService }  from '../../services/article-request.service'
 import { HelpersService, CacheService }  from '../../imports'
+import { environment } from '../../../../environments/environment';
 
 import { Subscription } from 'rxjs'
 
@@ -22,6 +23,8 @@ export class ArticleComponent implements OnInit {
   most_viewed_articles: any
 
   AUTHOR_IMAGE_URL: string
+
+  DISCUSS_URL: string
 
   IMAGE_URL: string
 
@@ -46,6 +49,8 @@ export class ArticleComponent implements OnInit {
     this.IMAGE_URL = articleRequestService.makeUrl('image.image');
 
     this.AUTHOR_IMAGE_URL = articleRequestService.makeUrl('public.image.author');
+
+    this.DISCUSS_URL = environment.discussUrl;
   }
 
   ngOnInit() {
