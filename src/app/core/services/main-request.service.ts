@@ -34,9 +34,9 @@ export class MainRequestService {
     protected routingListService: RoutingListService
   ) { }
 
-  makeGetRequest(key: string)
+  makeGetRequest(key: string, _url?: string)
   {
-    const url = this.makeUrl(key)
+    const url = this.makeUrl(key, _url)
 
     return this.http
                 .get(url, this.options)

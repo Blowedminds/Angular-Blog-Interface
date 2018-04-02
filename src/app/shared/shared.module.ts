@@ -14,13 +14,11 @@ import { MainNavigationComponent } from './components/main-navigation/main-navig
   ],
   imports: [
     CommonModule,
-    MaterialModule,
     HttpClientModule,
     FormsModule,
     RouterModule
   ],
   exports: [
-    MaterialModule,
     HttpClientModule,
     FormsModule
   ],

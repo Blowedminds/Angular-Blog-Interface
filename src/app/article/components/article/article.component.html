@@ -1,58 +1,67 @@
 <div class="loading" *ngIf="!isPageReady">
-  <mat-spinner></mat-spinner>
+  <div class="">
+
+  </div>
 </div>
 
 <div class="" *ngIf="isPageReady">
   <div class="container">
     <section class="article">
 
+      <div class="article-header">
+        <div class="header">
+          <h1 class="title">{{article.content.title}}</h1>
+
+          <h2 class="sub-title">{{article.content.sub_title}}</h2>
+        </div>
+      </div>
+
       <div class="article-image">
         <img [src]="IMAGE_URL + article.image" alt="">
       </div>
 
       <div class="article-content">
-
-        <div class="header">
-          <h1 class="title has-text-centered">{{article.content.title}}</h1>
-
-          <h2 class="sub-title has-text-centered">{{article.content.sub_title}}</h2>
-        </div>
-
         <div class="body" [innerHTML]="article.content.body"></div>
-
       </div>
 
       <div class="article-tiles">
-
-        <div class="discuss">
+        <div class="discuss border top bottom">
+          <div class="is-size-5  has-text-weight-bold">
+            <span>
+              Sende Tartışma Odasına Katıl, Konu hakkında düşüncelerini paylaş!
+            </span>
+          </div>
           <a [href]="DISCUSS_URL + 'room/' + article.slug" target="-_blank">Tartışma Odası</a>
         </div>
 
-        <div class="categories">
+        <div class="categories border bottom">
           <div class="category" *ngFor="let category of article.categories">
             <span>{{category.name}}</span>
           </div>
         </div>
 
-        <div class="available_languages">
+        <div class="available_languages border bottom">
           <div class="available-language" *ngFor="let available_language of article.available_languages">
             <span>{{available_language.name}}</span>
           </div>
         </div>
 
-        <div class="author">
+        <div class="author border bottom">
+          <div class="columns">
+            <div class="column is-2">
+              <div class="image is-64x64 profile-image">
+                <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
+              </div>
+            </div>
 
-          <div class="profile-image">
-            <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
+            <div class="column">
+              <div class="desc">
+                <p>{{article.author.name}}</p>
+                <p>{{article.author.biography}}</p>
+              </div>
+            </div>
           </div>
-
-          <div class="desc">
-            <p>{{article.author.name}}</p>
-            <p>{{article.author.biography}}</p>
-          </div>
-
         </div>
-
       </div>
 
     </section>

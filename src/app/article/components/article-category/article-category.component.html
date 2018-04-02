@@ -1,5 +1,4 @@
 <div class="loading" *ngIf="!articles || !locale || !category">
-  <mat-spinner></mat-spinner>
 </div>
 
 <div class="detail-content"  *ngIf="articles && locale && category">
@@ -14,11 +13,11 @@
           <div class="results">
 
             <div class="" *ngFor="let one of articles.data">
-              <mat-card>
+              <div class="box">
                 <div class="image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'"></div>
 
                 <a [routerLink]="[ '/' + locale + '/article', one.slug]">{{one.contents[0].title}}</a>
-              </mat-card>
+              </div>
             </div>
 
           </div>

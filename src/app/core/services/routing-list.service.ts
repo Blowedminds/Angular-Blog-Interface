@@ -9,8 +9,9 @@ export class RoutingListService {
     article: { url: 'reader/',
       'article': { url: '{}/article/',
       },
-      'most-viewed': { url: '{}/most-viewed' },
-      'latest': { url: '{}/latest' },
+      // 'most-viewed': { url: '{}/most-viewed' },
+      // 'latest': { url: '{}/latest' },
+      'sections': { url: '{}/sections'},
       'category': { url: '{}/category/' }
     },
     image: { url: 'image/',
