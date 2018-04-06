@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { ArticleRequestService }  from '../../services/article-request.service'
@@ -6,123 +6,70 @@ import { HelpersService, CacheService }  from '../../imports'
 import { environment } from '../../../../environments/environment';
 
 import { Subscription } from 'rxjs'
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.sass']
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnDestroy {
 
   article: any;
 
-  available_languages: any
+  subs: Subscription = new Subscription();
 
-  latest_articles: any
+  AUTHOR_IMAGE_URL: string;
 
-  most_viewed_articles: any
+  DISCUSS_URL: string;
 
-  AUTHOR_IMAGE_URL: string
+  IMAGE_URL: string;
 
-  DISCUSS_URL: string
+  locale: string;
 
-  IMAGE_URL: string
-
-  locale: string
-
-  slug: string
-
-  subs = new Subscription()
+  slug: string;
 
   get isPageReady()
   {
-    return this.article && this.latest_articles && this.most_viewed_articles && this.locale;
+    return this.article;
   }
 
   constructor(
-    private articleRequestService: ArticleRequestService,
-    private cacheService: CacheService,
-    private helpersService: HelpersService,
-    private route: ActivatedRoute
+      private articleRequestService: ArticleRequestService,
+      private cacheService: CacheService,
+      private helpersService: HelpersService,
+      private route: ActivatedRoute
   )
   {
-    this.IMAGE_URL = articleRequestService.makeUrl('image.image');
+      this.IMAGE_URL = articleRequestService.makeUrl('image.image');
 
-    this.AUTHOR_IMAGE_URL = articleRequestService.makeUrl('public.image.author');
+      this.AUTHOR_IMAGE_URL = articleRequestService.makeUrl('public.image.author');
 
-    this.DISCUSS_URL = environment.discussUrl;
+      this.DISCUSS_URL = environment.discussUrl;
   }
 
   ngOnInit() {
 
     let rq1 = this.helpersService.listenLocale().subscribe( locale => {
 
-      if(locale == 0) return;
+      if(!this.locale && locale != 0) {
 
-      this.resetData();
-
-      if(!this.locale) {
-
-        let rq2 = this.route.params.switchMap( (params: Params) => {
+        let rq2 = this.route.params.pipe(
+          switchMap( (params: Params) => {
 
           this.article = null
 
           return this.articleRequestService.getArticle(params['slug'], params['locale'])
-        }).subscribe( (response: any) => {
-          this.article = response
-
-          this.available_languages = response.available_languages.filter( obj => obj.slug !== locale)
-        });
+        })).subscribe( (response: any) => this.article = response);
 
         this.subs.add(rq2);
       }
-
-      this.updateMostViewedArticles();
-
-      this.updateArticlesAndLatestArticles();
-
-      this.locale = locale;
-    })
+    });
 
     this.subs.add(rq1);
   }
 
-  ngOnDestroy()
-  {
-    this.subs.unsubscribe()
-  }
-
-  changeLocale(locale: string)
-  {
-    return this.helpersService.changeLocale(locale)
-  }
-
-  updateMostViewedArticles()
-  {
-    this.most_viewed_articles = null
-
-    this.subs.add(
-      this.cacheService.get(`${this.locale}.most_viewed_articles`, this.articleRequestService.makeGetRequest('article.most-viewed'))
-                                .subscribe( response => this.most_viewed_articles = response)
-    );
-  }
-
-  updateArticlesAndLatestArticles()
-  {
-    this.latest_articles = null
-
-    this.subs.add(
-      this.cacheService.get(`${this.locale}.latest_article`, this.articleRequestService.makeGetRequest('article.latest'))
-                                .subscribe( response => this.latest_articles = response)
-    );
-
-  }
-
-  resetData()
-  {
-    this.article = null
-    this.most_viewed_articles = null
-    this.latest_articles = null
-    this.available_languages = null
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

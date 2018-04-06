@@ -7,6 +7,7 @@ import { ArticleRequestService }   from '../../services/article-request.service'
 import { HelpersService } from '../../imports'
 
 import { Subscription, BehaviorSubject} from 'rxjs'
+import { switchMap } from 'rxjs/operators';
 
  @Component({
   selector: 'app-article-search',
@@ -48,9 +49,9 @@ export class ArticleSearchComponent implements OnInit {
                 // this.locale = locale
               })
 
-    let rq1 = this.activatedRoute.queryParams
-                .switchMap( (params: Params) => [params['q']])
-                .subscribe( response => {
+    let rq1 = this.activatedRoute.queryParams.pipe(
+                  switchMap( (params: Params) => [params['q']])
+                ).subscribe( response => {
                    this.search(response)
 
                    this.query = response

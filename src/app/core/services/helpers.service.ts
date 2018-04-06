@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject }     from 'rxjs';
 @Injectable()
 export class HelpersService {
 
-  public locale = new BehaviorSubject<any>(0)
+  public locale = new BehaviorSubject<any>(null)
 
   constructor(private router: Router) { }
 
@@ -46,7 +46,7 @@ export class HelpersService {
   {
     return this.router.navigate(link, options);
   }
-  
+
   navigateByUrl(link: string)
   {
     return this.router.navigateByUrl(link);

@@ -17,21 +17,26 @@ export class HomeRequestService extends MainRequestService {
     super(http, helpersService, routingListService)
   }
 
-  getMostViewedArticles(): Observable<any>
+  getSections(): Observable<any>
   {
-    const url = this.makeUrl('article.most-viewed')
-
-    return this.http
-                .get(url, this.options)
-                .catch(error => this.handleError(error));
+    return this.makeGetRequest('article.sections');
   }
 
-  getLatestArticles(): Observable<any>
-  {
-    const url = this.makeUrl('article.latest')
-
-    return this.http
-                .get(url, this.options)
-                .catch(error => this.handleError(error));
-  }
+  // getMostViewedArticles(): Observable<any>
+  // {
+  //   const url = this.makeUrl('article.most-viewed')
+  //
+  //   return this.http
+  //               .get(url, this.options)
+  //               .catch(error => this.handleError(error));
+  // }
+  //
+  // getLatestArticles(): Observable<any>
+  // {
+  //   const url = this.makeUrl('article.latest')
+  //
+  //   return this.http
+  //               .get(url, this.options)
+  //               .catch(error => this.handleError(error));
+  // }
 }

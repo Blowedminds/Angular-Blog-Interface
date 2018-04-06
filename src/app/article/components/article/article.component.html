@@ -1,57 +1,93 @@
 <div class="loading" *ngIf="!isPageReady">
-  <mat-spinner></mat-spinner>
+  <div class="">
+
+  </div>
 </div>
 
 <div class="" *ngIf="isPageReady">
   <div class="container">
     <section class="article">
 
+      <div class="article-header">
+        <div class="header">
+          <h1 class="title">{{article.content.title}}</h1>
+
+          <h2 class="sub-title">{{article.content.sub_title}}</h2>
+        </div>
+      </div>
+
       <div class="article-image">
         <img [src]="IMAGE_URL + article.image" alt="">
       </div>
 
       <div class="article-content">
-
-        <div class="header">
-          <h1 class="title has-text-centered">{{article.content.title}}</h1>
-
-          <h2 class="sub-title has-text-centered">{{article.content.sub_title}}</h2>
-        </div>
-
         <div class="body" [innerHTML]="article.content.body"></div>
+      </div>
 
+      <div class="keywords">
+        <div class="keyword" >
+          <span class="tag is-dark is-rounded" *ngFor="let keyword of article.content.keywords">{{keyword}}</span>
+        </div>
       </div>
 
       <div class="article-tiles">
-
-        <div class="discuss">
+        <div class="discuss border top bottom">
+          <div class="is-size-5  has-text-weight-bold">
+            <span>
+              Sende Tartışma Odasına Katıl, Konu hakkında düşüncelerini paylaş!
+            </span>
+          </div>
           <a [href]="DISCUSS_URL + 'room/' + article.slug" target="-_blank">Tartışma Odası</a>
         </div>
 
-        <div class="categories">
+        <div class="categories border bottom">
+          <div class="">
+            <p class="is-size-5 has-text-weight-bold">Kategori</p>
+          </div>
           <div class="category" *ngFor="let category of article.categories">
-            <span>{{category.name}}</span>
+            <span class="is-size-6">{{category.name}}</span>
           </div>
         </div>
 
-        <div class="available_languages">
+        <div class="available_languages border bottom">
+          <div class="is-size-5  has-text-weight-bold">
+            <span>
+              Bu Yazının Diğer Dillerdeki Tercümeleri
+            </span>
+          </div>
           <div class="available-language" *ngFor="let available_language of article.available_languages">
-            <span>{{available_language.name}}</span>
+            <span>
+              <a [routerLink]="[ '/' + available_language.slug + '/article', article.slug]">{{available_language.name}}</a>
+            </span>
           </div>
+          <span *ngIf="article.available_languages.length <=1">Başka dilde tercümesi yok</span>
         </div>
 
-        <div class="author">
+        <article class="media author border bottom">
+          <figure class="media-left">
+            <p class="image is-64x64 profile-image">
+              <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{article.author.name}}</strong>
+                <br>
+                {{article.author.biography}}
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
 
-          <div class="profile-image">
-            <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
+                </div>
+              </div>
+            </nav>
           </div>
-
-          <div class="desc">
-            <p>{{article.author.name}}</p>
-            <p>{{article.author.biography}}</p>
+          <div class="media-right">
           </div>
-
-        </div>
+        </article>
 
       </div>
 

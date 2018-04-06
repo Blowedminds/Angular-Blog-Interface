@@ -6,6 +6,7 @@ import { ArticleRequestService }   from '../../services/article-request.service'
 import { HelpersService, CacheService } from '../../imports'
 
 import { Subscription } from 'rxjs'
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-article-category',
@@ -40,7 +41,7 @@ export class ArticleCategoryComponent implements OnInit {
 
        this.locale = locale
 
-       let rq2 = this.route.params.switchMap( (param : Params) => {
+       let rq2 = this.route.params.pipe(switchMap( (param : Params) => {
 
           this.category_slug = param['category_slug']
 
@@ -52,7 +53,7 @@ export class ArticleCategoryComponent implements OnInit {
           this.subs.add(rq3)
 
           return this.articleRequestService.getArticlesByCategory(param['category_slug'])
-        })
+        }))
          .subscribe( response => this.articles = response )
 
        this.subs.add(rq2)

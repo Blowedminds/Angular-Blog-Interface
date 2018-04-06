@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import { HelpersService } from './helpers.service';
 import { RoutingListService } from './routing-list.service';
 import { environment } from '../../../environments/environment';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class MainRequestService {
@@ -34,13 +32,13 @@ export class MainRequestService {
     protected routingListService: RoutingListService
   ) { }
 
-  makeGetRequest(key: string)
+  makeGetRequest(key: string, _url?: string): Observable<any>
   {
-    const url = this.makeUrl(key)
+    const url = this.makeUrl(key, _url)
 
     return this.http
                 .get(url, this.options)
-                .catch(error => this.handleError(error));
+                .pipe(catchError(error => this.handleError(error)));
   }
 
   makeUrl(key: string, url?: string): string

@@ -1,66 +1,8 @@
 @import node_modules/bulma/bulma
 @import themes/light/theme.sass
 
-h1, h2, h3, h4, h5, h6, p, span
-  font-weight: 400
-
 html
-
-body
-  margin: 0
-  font-family: 'Open Sans', sans-serif
-  background-color: $body-background-color
-a
-  color: $menu-a-color
-a:hover
-  color: orange
-  text-decoration: none
-
-
-#main-menu
-  background: $menu-back-color
-  color: $menu-a-color
-
-  a
-    color: $menu-a-color
-
-  .logo
-    img
-      width: 100%
-      height: 100%
-  .nav
-    background: $menu-nav-color
-    display: flex
-    justify-content: flex-end
-    align-items: center
-
-    ul
-      li
-        padding: 1em 1.5em
-
-.lang-active
-  background-color: orange !important
-  color: white !important
-
-ul.navigator
-  list-style: none
-  float: right
-  li
-    display: inline-block
-
-.loading
-  position: absolute
-  display: flex
-  justify-content: center
-  align-items: center
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  z-index: -1
-
-section
-  margin: 1em 0
+  overflow: auto
 
 /*Search Block Schema*/
 .detail-content
@@ -73,28 +15,15 @@ section
         a
           color: white
 /*Article*/
-.article
-  h1
-    text-transform: capitalize
-    text-align: center
-    margin: 1em
-    font-size: 34px
-  p
+.article .body
+  p, li
     line-height: 1.85
-    font-size: 19px
+    font-size: 17px
     margin-top: 2em
     margin-bottom: 2em
-    font-family: 'Times New Roman'
+    font-family: 'Open Sans', sans-serif
     color: black
 
-  img
-    width: 75%
-    height: auto
-    display: block
-    margin: auto
-    margin-top: 1em
-    margin-bottom: 1em
-    border-radius: 2px
 /*Footer*/
 .footer
   width: 100%

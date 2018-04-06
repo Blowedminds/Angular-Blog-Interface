@@ -1,109 +1,52 @@
-<div class="loading" *ngIf="!isPageReady">
-  <mat-spinner></mat-spinner>
-</div>
+<div *ngIf="!isPageReady; then loadingTemplate else contentTemplate"></div>
 
-<div class="main" *ngIf="isPageReady">
-  <section id="main-content">
+<ng-template #loadingTemplate>
+  <div class="">
+    
+  </div>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <section class="main" *ngFor="let section of sections">
     <div class="container">
-      <div class="main-section">
+      <div class="header">
+        <h1 class="section-title title is-size-3 has-text-weight-light">{{section.name}}</h1>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <div class="columns">
+            <div class="column">
+              <div class="columns is-multiline">
+                <div class="column is-3 nth-column-{{i}}" *ngFor="let article of section.articles; let i = index">
+                  <a [routerLink]="['/' + locale + '/article', article.slug]">
+                    <div class="card">
+                      <div class="card-image">
+                        <figure class="image is-4by3">
+                          <img [src]="IMAGE_URL + article.image" alt="Placeholder image">
+                        </figure>
+                      </div>
 
-        <div class="main-one" *ngFor="let one of latest_articles; let i = index">
+                      <div class="card-content">
+                        <div class="content">
 
-          <div class="content">
+                          <div class="header">
+                              <h1 class="title has-text-weight-bold custom-is-size-6-5">{{article.content.title}}</h1>
+                          </div>
 
-            <div class="image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'">
+                          <div class="text">
+                            <p class="sub-title is-size-7">{{article.content.sub_title}}</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
-
-            <div class="black-layer"></div>
-
-            <span class="article-category">{{findCategory(one.categories[0])}}</span>
-
-            <a [routerLink]="['article', one.slug]">
-              <h1>{{one.content.title}}</h1>
-            </a>
-
           </div>
         </div>
-
       </div>
     </div>
   </section>
-
-  <section class="blog-content">
-    <div class="container">
-      <div class="blog-section">
-
-        <div class="columns">
-          <div class="column is-65-width">
-            <div class="article-card" *ngFor="let one of articles; let i = index">
-              <mat-card class="article">
-
-                <div class="article-image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'"></div>
-
-                <div class="black-layer"></div>
-
-                <div class="article-title">
-                  <h1>{{one.content.title}}</h1>
-
-                  <p class="article-date">{{one.created_at}}</p>
-                </div>
-
-                <div class="article-content">
-
-                  <p class="article-sub-title">
-                    {{one.content.sub_title}}
-                    <a class="article-read-more" [routerLink]="['article', one.slug]">Okumaya Devam ...</a>
-                  </p>
-
-                </div>
-
-              </mat-card>
-            </div>
-          </div>
-          <div class="column">
-
-            <div class="most-viewed side-bar">
-              <mat-card>
-                <div class="title is-size-12">
-                  En çok Okunanlar
-                </div>
-                <div class="m-content" *ngFor="let one of most_viewed_articles">
-                  <div class="columns">
-                    <div class="column image-column">
-                      <div class="image" [style.background-image]="'url(' + IMAGE_URL + one.image + ')'"></div>
-
-                    </div>
-                    <div class="column">
-                      <a class="read-more" [routerLink]="['article', one.slug]">{{one.content.title}}</a>
-
-                    </div>
-                  </div>
-                </div>
-              </mat-card>
-            </div>
-
-            <div class="category side-bar">
-              <mat-card>
-                <div class="title is-size-12">
-                  Kategoriler
-                </div>
-                <div class="m-content" *ngFor="let one of categories">
-                  <div class="columns">
-                    <div class="column">
-                      <a class="read-more" [routerLink]="['category', one.slug]">{{one.name}}</a>
-
-                    </div>
-                  </div>
-                </div>
-              </mat-card>
-            </div>
-
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-  </section>
-
-</div>
+</ng-template>
