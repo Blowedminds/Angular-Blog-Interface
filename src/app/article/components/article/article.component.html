@@ -24,6 +24,12 @@
         <div class="body" [innerHTML]="article.content.body"></div>
       </div>
 
+      <div class="keywords">
+        <div class="keyword" >
+          <span class="tag is-dark is-rounded" *ngFor="let keyword of article.content.keywords">{{keyword}}</span>
+        </div>
+      </div>
+
       <div class="article-tiles">
         <div class="discuss border top bottom">
           <div class="is-size-5  has-text-weight-bold">
@@ -35,33 +41,54 @@
         </div>
 
         <div class="categories border bottom">
+          <div class="">
+            <p class="is-size-5 has-text-weight-bold">Kategori</p>
+          </div>
           <div class="category" *ngFor="let category of article.categories">
-            <span>{{category.name}}</span>
+            <span class="is-size-6">{{category.name}}</span>
           </div>
         </div>
 
         <div class="available_languages border bottom">
+          <div class="is-size-5  has-text-weight-bold">
+            <span>
+              Bu Yazının Diğer Dillerdeki Tercümeleri
+            </span>
+          </div>
           <div class="available-language" *ngFor="let available_language of article.available_languages">
-            <span>{{available_language.name}}</span>
+            <span>
+              <a [routerLink]="[ '/' + available_language.slug + '/article', article.slug]">{{available_language.name}}</a>
+            </span>
           </div>
+          <span *ngIf="article.available_languages.length <=1">Başka dilde tercümesi yok</span>
         </div>
 
-        <div class="author border bottom">
-          <div class="columns">
-            <div class="column is-2">
-              <div class="image is-64x64 profile-image">
-                <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
-              </div>
+        <article class="media author border bottom">
+          <figure class="media-left">
+            <p class="image is-64x64 profile-image">
+              <img [src]="AUTHOR_IMAGE_URL + article.author.profile_image" alt="">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{article.author.name}}</strong>
+                <br>
+                {{article.author.biography}}
+              </p>
             </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
 
-            <div class="column">
-              <div class="desc">
-                <p>{{article.author.name}}</p>
-                <p>{{article.author.biography}}</p>
+                </div>
               </div>
-            </div>
+            </nav>
           </div>
-        </div>
+          <div class="media-right">
+          </div>
+        </article>
+
       </div>
 
     </section>

@@ -4,8 +4,6 @@ import { RouterModule }    from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MaterialModule } from '../material/material.module';
-
 import { MainNavigationComponent } from './components/main-navigation/main-navigation.component';
 
 @NgModule({

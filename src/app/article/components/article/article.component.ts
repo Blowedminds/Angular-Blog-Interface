@@ -6,6 +6,7 @@ import { HelpersService, CacheService }  from '../../imports'
 import { environment } from '../../../../environments/environment';
 
 import { Subscription } from 'rxjs'
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-article',
@@ -53,12 +54,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
       if(!this.locale && locale != 0) {
 
-        let rq2 = this.route.params.switchMap( (params: Params) => {
+        let rq2 = this.route.params.pipe(
+          switchMap( (params: Params) => {
 
           this.article = null
 
           return this.articleRequestService.getArticle(params['slug'], params['locale'])
-        }).subscribe( (response: any) => this.article = response);
+        })).subscribe( (response: any) => this.article = response);
 
         this.subs.add(rq2);
       }

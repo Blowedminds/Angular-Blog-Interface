@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd  } from '@angular/router';
 
 import { MainNavigationComponent, MainRequestService, CacheService, HelpersService } from '../../imports';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navigation',
@@ -20,7 +21,7 @@ export class NavigationComponent extends MainNavigationComponent {
   {
     super();
 
-    this.router.events.filter( e => e instanceof NavigationEnd).subscribe( e => {
+    this.router.events.pipe(filter( e => e instanceof NavigationEnd)).subscribe( e => {
 
       let locale = this.activatedRoute.root.firstChild.snapshot.params['locale']
 
