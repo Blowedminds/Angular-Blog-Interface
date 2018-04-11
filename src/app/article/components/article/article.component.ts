@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { ArticleRequestService }  from '../../services/article-request.service'
-import { HelpersService, CacheService }  from '../../imports'
+import { ArticleRequestService } from '../../services/article-request.service';
+import { HelpersService, CacheService } from '../../imports';
 import { environment } from '../../../../environments/environment';
 
-import { Subscription } from 'rxjs'
+import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -29,38 +29,41 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   slug: string;
 
-  get isPageReady()
-  {
+  get isPageReady() {
     return this.article;
   }
 
   constructor(
-      private articleRequestService: ArticleRequestService,
-      private cacheService: CacheService,
-      private helpersService: HelpersService,
-      private route: ActivatedRoute
-  )
-  {
-      this.IMAGE_URL = articleRequestService.makeUrl('image.image');
+    private articleRequestService: ArticleRequestService,
+    private cacheService: CacheService,
+    private helpersService: HelpersService,
+    private route: ActivatedRoute
+  ) {
+    this.IMAGE_URL = articleRequestService.makeUrl('image.image');
 
-      this.AUTHOR_IMAGE_URL = articleRequestService.makeUrl('public.image.author');
+    this.AUTHOR_IMAGE_URL = articleRequestService.makeUrl('public.image.author');
 
-      this.DISCUSS_URL = environment.discussUrl;
+    this.DISCUSS_URL = environment.discussUrl;
   }
 
   ngOnInit() {
 
-    let rq1 = this.helpersService.listenLocale().subscribe( locale => {
+    const rq1 = this.helpersService.listenLocale().subscribe(locale => {
 
-      if(!this.locale && locale != 0) {
+      if (!this.locale && locale !== null) {
 
-        let rq2 = this.route.params.pipe(
-          switchMap( (params: Params) => {
+        const rq2 = this.route.params.pipe(
+          switchMap((params: Params) => {
 
-          this.article = null
+            this.article = null;
 
-          return this.articleRequestService.getArticle(params['slug'], params['locale'])
-        })).subscribe( (response: any) => this.article = response);
+            return this.articleRequestService.getArticle(params['slug']);
+          })).subscribe((response: any) => {
+            response.available_languages = response.available_languages
+                                            .filter(language => this.helpersService.getLocale() !== language.slug);
+
+            this.article = response;
+          });
 
         this.subs.add(rq2);
       }

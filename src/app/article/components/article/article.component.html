@@ -60,7 +60,7 @@
               <a [routerLink]="[ '/' + available_language.slug + '/article', article.slug]">{{available_language.name}}</a>
             </span>
           </div>
-          <span *ngIf="article.available_languages.length <=1">Başka dilde tercümesi yok</span>
+          <span *ngIf="article.available_languages.length === 0">Başka dilde tercümesi yok</span>
         </div>
 
         <article class="media author border bottom">

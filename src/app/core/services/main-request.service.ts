@@ -13,17 +13,17 @@ export class MainRequestService {
 
   public MAIN_URI: string = environment.apiUrl;
 
-  get options()
-  {
+  get options() {
     return this._options;
   }
 
   private _options: any = {
-    headers:  new HttpHeaders({
+    headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
       // 'X-Socket-ID': ''
     })
+  // tslint:disable-next-line:semicolon
   }
 
   constructor(
@@ -32,17 +32,15 @@ export class MainRequestService {
     protected routingListService: RoutingListService
   ) { }
 
-  makeGetRequest(key: string, _url?: string): Observable<any>
-  {
-    const url = this.makeUrl(key, _url)
+  makeGetRequest(key: string, _url?: string): Observable<any> {
+    const url = this.makeUrl(key, _url);
 
     return this.http
-                .get(url, this.options)
-                .pipe(catchError(error => this.handleError(error)));
+      .get(url, this.options)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
-  makeUrl(key: string, url?: string): string
-  {
+  makeUrl(key: string, url?: string): string {
     let route = this.routingListService.getUrl(key);
 
     route = route.replace('{}', this.helpersService.getLocale());
@@ -53,10 +51,7 @@ export class MainRequestService {
   protected handleError(error: any, router: any = null): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
 
-    switch (error.status){
-      case 401:
-        this.helpersService.navigate(['login']);
-        break;
+    switch (error.status) {
       case 421:
         this.helpersService.navigate([error.link]);
         break;
